@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar mySeekBar;
     private TextView lblVolume, lblInformacoes;
     private EditText txtPorta, txtIp;
-    private Button btnDesligar, btnSincronizar;
+    private Button btnDesligar, btnSincronizar, btnMouseView;
     private Context isto;
     private DialogDesligar dlg;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         lblInformacoes = findViewById(R.id.lblInformacoes);
         btnDesligar = findViewById(R.id.btnDesligar);
         btnSincronizar = findViewById(R.id.btnSincronizar);
+        btnMouseView = findViewById(R.id.btnMouseView);
         txtPorta = findViewById(R.id.txtPorta);
         txtIp = findViewById(R.id.txtIp);
 
@@ -79,6 +81,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 lblInformacoes.setText("Sincronizar");
                 sincronizar();
+            }
+        });
+
+        btnMouseView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                lblInformacoes.setText("View Mouse");
+                Intent intent = new Intent(isto, MouseActivity.class);
+                intent.putExtra("porta", getPort());
+                intent.putExtra("ip", getIp());
+                startActivity(intent);
             }
         });
 
