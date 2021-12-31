@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.controltcpandroid.tcpip.TcpClient;
 
-public class MouseActivity  extends AppCompatActivity {
+public class MouseActivity extends AppCompatActivity {
 
     private TcpClient client;
     private int porta;
@@ -39,7 +39,9 @@ public class MouseActivity  extends AppCompatActivity {
         int height = displayMetrics.heightPixels;
 
         View view = findViewById(R.id.activity_mouse);
-        view.setOnTouchListener((view1, event) -> {  return onTouch(view1, event, width, height);  });
+        view.setOnTouchListener((view1, event) -> {
+            return onTouch(view1, event, width, height);
+        });
 
         btnClickMouse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -49,11 +51,11 @@ public class MouseActivity  extends AppCompatActivity {
         });
     }
 
-    private void clickMouse(){
+    private void clickMouse() {
         // 4 - click mouse
-        client.enviarMensagem( ip, porta, "4", mensagem -> {
-            runOnUiThread(() ->{
-                if (mensagem==null||mensagem.isEmpty()|| !mensagem.substring(0,1).equals("1")){
+        client.enviarMensagem(ip, porta, "4", mensagem -> {
+            runOnUiThread(() -> {
+                if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
                     txtInformacoes.setText("Erro ao enviar click");
                     return;
                 }
@@ -62,18 +64,18 @@ public class MouseActivity  extends AppCompatActivity {
         });
     }
 
-    private boolean onTouch(View v, MotionEvent event, int width, int height){
+    private boolean onTouch(View v, MotionEvent event, int width, int height) {
         //System.out.println("------------------------------------------");
         //System.out.println("event: " + event);
 //            System.out.println(event.getX() + ", " + event.getY() + " / ("+width+", "+height+")");
 
         String mensagemSend = "3";
-        mensagemSend += width + "x" + height + "," +(int)event.getX() + "x" + (int)event.getY();
+        mensagemSend += width + "x" + height + "," + (int) event.getX() + "x" + (int) event.getY();
 
         // 3 - send mouse pos
-        client.enviarMensagem( ip, porta, mensagemSend, mensagem -> {
-            runOnUiThread(() ->{
-                if (mensagem==null||mensagem.isEmpty()|| !mensagem.substring(0,1).equals("1")){
+        client.enviarMensagem(ip, porta, mensagemSend, mensagem -> {
+            runOnUiThread(() -> {
+                if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
                     txtInformacoes.setText("Erro ao enviar informaçoẽs do mouse");
                     return;
                 }
@@ -84,9 +86,11 @@ public class MouseActivity  extends AppCompatActivity {
         return true;
     }
 
-    private void getExtras(){
+    private void getExtras() {
         Bundle extras = getIntent().getExtras();
-        if (extras == null){return;}
+        if (extras == null) {
+            return;
+        }
         ip = extras.getString("ip");
         porta = extras.getInt("porta");
     }

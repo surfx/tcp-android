@@ -7,9 +7,9 @@ import android.content.DialogInterface;
 /**
  * https://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android
  */
-public class DialogDesligar {
+public class DialogSimNao {
 
-    public void showDialogDesligar(String mensagem, Runnable mtSim, Runnable mtNao, Context context){
+    public void showDialogSimNao(String mensagem, Runnable mtSim, Runnable mtNao, Context context) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
         builder1.setMessage(mensagem);
         builder1.setCancelable(true);
@@ -18,7 +18,7 @@ public class DialogDesligar {
                 "Sim",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (mtSim!=null) {
+                        if (mtSim != null) {
                             mtSim.run();
                         }
                         dialog.cancel();
@@ -29,7 +29,7 @@ public class DialogDesligar {
                 "Não",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (mtNao!=null) {
+                        if (mtNao != null) {
                             mtNao.run();
                         }
                         dialog.cancel();

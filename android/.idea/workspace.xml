@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
@@ -22,12 +27,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5809ad8f-465a-4bf9-a74c-92008f6fc096" name="Default Changelist" comment="" />
+    <list default="true" id="5809ad8f-465a-4bf9-a74c-92008f6fc096" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/android.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@192.168.58.101:5555]" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>

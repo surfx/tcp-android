@@ -1,4 +1,5 @@
 package br.com.controltcpandroid.tcpip;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +31,9 @@ public class TcpClient {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
                 String resposta = reader.readLine();
                 System.out.println("[c] " + resposta);
-                if (iTratarRequisicao!=null){  iTratarRequisicao.tratar(resposta);  }
+                if (iTratarRequisicao != null) {
+                    iTratarRequisicao.tratar(resposta);
+                }
 
                 socket.close();
             } catch (UnknownHostException ex) {
