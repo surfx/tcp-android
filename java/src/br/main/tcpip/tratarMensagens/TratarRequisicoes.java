@@ -52,7 +52,7 @@ public class TratarRequisicoes implements ITratarRequisicao {
 		}
 	}
 	
-	// 2 - sincronizar
+	// 2 - desligar
 	private String getDesligar() {
 		Shutdown.shutDown();
 		return codOk + "Desligando";
