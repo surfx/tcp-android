@@ -1,1 +1,8 @@
 /.metadata/
+/bin/
+/bin/Debug/
+/bin/Debug/net7.0/
+csharp/tcpserver_csharp/bin/
+csharp/tcpserver_csharp/bin/Debug/
+csharp/tcpserver_csharp/bin/Debug/net7.0/
+

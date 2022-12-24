@@ -8,9 +8,25 @@ using auxiliar;
 class Program
 {
 
+    private const Int32 port = 9876;
+
     static void Main(string[] args)
     {
+        printCabecalho();
         tcpServer();
+    }
+
+    private static void printCabecalho()
+    {
+        Console.WriteLine("--------------------");
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList) {
+            if (ip.AddressFamily == AddressFamily.InterNetwork) {
+                Console.WriteLine(ip.ToString());
+            }
+        }
+        Console.WriteLine("Server TCP port " + port);
+        Console.WriteLine("--------------------");
     }
 
     /*
@@ -27,7 +43,6 @@ class Program
             TcpListener? server = null;
 
             try {
-                const Int32 port = 9876;
                 //IPAddress localAddr = IPAddress.Parse("127.0.0.1");
                 //server = new TcpListener(localAddr, port);
                 server = new TcpListener(IPAddress.Any, port);
