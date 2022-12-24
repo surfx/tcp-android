@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import br.main.controles.Audio;
 import br.main.controles.MouseControl;
-import br.main.controles.ShutdownLinux;
+import br.main.controles.Shutdown;
 import br.main.tcpip.interfaces.ITratarRequisicao;
 
 public class TratarRequisicoes implements ITratarRequisicao {
@@ -54,7 +54,7 @@ public class TratarRequisicoes implements ITratarRequisicao {
 	
 	// 2 - sincronizar
 	private String getDesligar() {
-		ShutdownLinux.shutDownLinux();
+		Shutdown.shutDown();
 		return codOk + "Desligando";
 	}
 	
