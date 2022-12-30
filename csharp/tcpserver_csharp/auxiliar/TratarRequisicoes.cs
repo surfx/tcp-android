@@ -35,6 +35,10 @@ namespace auxiliar
             {
                 return getClickMouse();
             }
+            else if (tipo.Equals("5"))
+            {
+                return lockScreen();
+            }
 
             return rt;
         }
@@ -120,6 +124,12 @@ namespace auxiliar
             MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftDown);
             MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftUp);
             return codOk + "click recebido";
+        }
+
+        // 5 - Lock Screen
+        private String lockScreen(){
+            LockScreen.LockWorkStation();
+            return codOk + "Tela Bloqueada";
         }
 
     }
