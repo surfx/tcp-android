@@ -323,7 +323,7 @@ namespace auxiliar.testes
             Console.WriteLine("----------------RETORNO------------------");
             // retorno: 1 bit (valor: 1) + 12 bits (size string) + n bits (string)
 
-            String rt = "Recebido";
+            String rt = "Click Recebido";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
             Console.WriteLine("retorno: {0}", BinaryBitsAux.ToBitString(retorno));
 
@@ -353,7 +353,7 @@ namespace auxiliar.testes
             Console.WriteLine("----------------RETORNO------------------");
             // retorno: 1 bit (valor: 1) + 12 bits (size string) + n bits (string)
 
-            String rt = "Recebido";
+            String rt = "Tela Bloqueada";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
             Console.WriteLine("retorno: {0}", BinaryBitsAux.ToBitString(retorno));
 

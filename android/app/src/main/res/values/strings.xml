@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TCP Android</string>
+    <string name="mouse_view">Mouse View</string>
+    <string name="volume">Volume:</string>
+    <string name="sincronizar">Sinch</string>
+    <string name="desligar">Desligar</string>
+    <string name="mouse">Mouse</string>
+    <string name="lblinformacoes">lblInformacoes</string>
+    <string name="ip">IP</string>
+    <string name="_192_168_0_213">192.168.0.213</string>
+    <string name="porta">Porta</string>
+    <string name="_9876">9876</string>
+    <string name="salvar">Salvar</string>
+    <string name="load">Load</string>
+    <string name="timer">Timer</string>
+    <string name="resetar">Resetar</string>
+    <string name="click">click</string>
+    <string name="lock">Lock</string>
+</resources>
