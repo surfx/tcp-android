@@ -151,16 +151,16 @@ namespace auxiliar.testes
 
             Console.WriteLine("-----------------------------------------");
             testeEntrada0(codOk);
-            Console.WriteLine("-----------------------------------------");
-            testeEntrada1(codOk);
-            Console.WriteLine("-----------------------------------------");
-            testeEntrada2(codOk);
-            Console.WriteLine("-----------------------------------------");
-            testeEntrada3(codOk);
-            Console.WriteLine("-----------------------------------------");
-            testeEntrada4(codOk);
-            Console.WriteLine("-----------------------------------------");
-            testeEntrada5(codOk);
+            // Console.WriteLine("-----------------------------------------");
+            // testeEntrada1(codOk);
+            // Console.WriteLine("-----------------------------------------");
+            // testeEntrada2(codOk);
+            // Console.WriteLine("-----------------------------------------");
+            // testeEntrada3(codOk);
+            // Console.WriteLine("-----------------------------------------");
+            // testeEntrada4(codOk);
+            // Console.WriteLine("-----------------------------------------");
+            // testeEntrada5(codOk);
 
             // BitArray entrada2BType = new BitArray(1); entrada2BType[0] = true;
             // byte[] entrada1B = Combine(entrada2BType, BitConverter.GetBytes(13.97f)); // 13.97 float - 4 bytes

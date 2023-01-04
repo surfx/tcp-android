@@ -15,69 +15,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="56bf9312-77a7-4b5a-ab12-424fc6332399" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/android.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/androidTest/java/br/com/controltcpandroid/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/java/br/com/controltcpandroid/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/java/br/com/controltcpandroid/MouseActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/java/br/com/controltcpandroid/arquivos/Arquivos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/java/br/com/controltcpandroid/dialogs/DialogSimNao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/java/br/com/controltcpandroid/tcpip/ITratarRequisicao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/java/br/com/controltcpandroid/tcpip/TcpClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/layout/activity_mouse.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/values-night/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/main/res/values/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/app/src/test/java/br/com/controltcpandroid/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app001/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/TestesBinario.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/TestesBinaryBits.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/TestesBinaryBits.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +40,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -111,6 +69,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
@@ -190,5 +149,16 @@
       <updated>1672412088163</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

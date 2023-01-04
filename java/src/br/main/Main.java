@@ -5,11 +5,14 @@ import java.net.UnknownHostException;
 
 import br.main.tcpip.TcpServer;
 import br.main.tcpip.tratarMensagens.TratarRequisicoes;
+import br.main.testes.TestesBinario;
 
 public class Main {
 
 	public static void main(String[] args) throws UnknownHostException {
-		startTCPServer();
+		//startTCPServer();
+		
+		TestesBinario.testeMensagensBin();
 	}
 
 	private static void startTCPServer() throws UnknownHostException {

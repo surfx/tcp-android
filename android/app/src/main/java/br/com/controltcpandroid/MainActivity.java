@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import br.com.controltcpandroid.arquivos.Arquivos;
 import br.com.controltcpandroid.dialogs.DialogSimNao;
 import br.com.controltcpandroid.tcpip.TcpClient;
+import br.com.controltcpandroid.testes.TestesBinario;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -166,12 +167,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnLock.setOnClickListener(v -> {
             lblInformacoes.setText("Lock");
-            dlg.showDialogSimNao(
-                "Deseja bloquear a tela do PC ?", () -> {
-                    lockScreen();
-                }, () -> {
-                    lblInformacoes.setText("Lock Cancelado");
-                }, isto);
+
+            lockScreen();
+//            dlg.showDialogSimNao(
+//                "Deseja bloquear a tela do PC ?", () -> {
+//                    lockScreen();
+//                }, () -> {
+//                    lblInformacoes.setText("Lock Cancelado");
+//                }, isto);
         });
 
         loadData();
@@ -296,6 +299,8 @@ public class MainActivity extends AppCompatActivity {
         int porta = getPort();
         String ip = getIp();
         lblInformacoes.setText("lockScreen Method");
+
+        TestesBinario.testeMensagensBin();
     }
 
 }
