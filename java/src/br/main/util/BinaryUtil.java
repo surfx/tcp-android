@@ -4,6 +4,24 @@ import java.nio.charset.Charset;
 
 public class BinaryUtil {
 
+	public static MyBitSet getBitsInteresse(byte[] buffer, final int numBits) {
+		int pos = 0;
+		boolean bigendian = false;
+		boolean[] bitsInteresse = new boolean[numBits];
+		for(int i = 0; i < buffer.length; i++) {
+			if (pos >= numBits) {break;}
+			for(int j = 0; j < 8; j++) {
+				bitsInteresse[pos++] = getBit( buffer[i], bigendian ? 7 - j : j ) == 1;
+				if (pos >= numBits) {break;}
+			}
+		}
+		
+		//for(int i = 0; i < pacoteSize; i++) { System.out.print(bitsInteresse[i]?1:0); } System.out.println();
+		MyBitSet rt = new MyBitSet(numBits);
+		rt.fromBoolean(bitsInteresse);
+		return rt;
+	}
+	
     public static byte[] toByte(float input) {
 	    byte[] floatB = floatToByteArray(input, false);
 	    //for (int i = 0; i < floatB.length; i++) System.out.println(  toStr(floatB[i]) );

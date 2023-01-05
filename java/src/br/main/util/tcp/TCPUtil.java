@@ -11,40 +11,30 @@ import br.main.util.MyBitSet;
 
 public class TCPUtil {
 
-	public static void send(MyBitSet pacote, DataOutputStream dos) throws IOException {
-		byte[] toSend = pacote.toByte();
-		
-		dos.writeByte((byte)pacote.size());
-		dos.writeInt(toSend.length);
-		dos.write(toSend);
+	private static final int PACKAGESIZE = 10;
+	
+	public static void sendPackage(MyBitSet data, DataOutputStream stream) throws IOException {
+		// headers
+		MyBitSet aux = BinaryUtil.toMBitByte((byte)data.size(), PACKAGESIZE, false);
+		aux.append(data);
+		byte[] buffer = aux.toByte();
+		stream.write(buffer);
+		System.out.println(String.format("[sendPackage] data: %s [%s]", aux.toString(), data.size()));
 	}
 
-	public static MyBitSet receive(DataInputStream dis) throws IOException {
-		byte pacoteSize = dis.readByte();
-		int size = dis.readInt();
-		//System.out.println("pacoteSize: " + pacoteSize +  ", size: " + size);
-		byte[] bytes = dis.readNBytes(size);
-		//System.out.println("bytes.length: " + bytes.length);
-
-		int pos = 0;
-		boolean bigendian = false;
-		boolean[] bitsInteresse = new boolean[pacoteSize];
-		for(int i = 0; i < bytes.length; i++) {
-			if (pos >= pacoteSize) {break;}
-			for(int j = 0; j < 8; j++) {
-				bitsInteresse[pos++] = BinaryUtil.getBit( bytes[i], bigendian ? 7 - j : j ) == 1;
-				if (pos >= pacoteSize) {break;}
-			}
-		}
+	public static MyBitSet receivePackage(DataInputStream stream) throws IOException {
+		byte[] buffer = new byte[200];
+		int i = stream.read(buffer, 0, buffer.length);
 		
-		//for(int i = 0; i < pacoteSize; i++) { System.out.print(bitsInteresse[i]?1:0); } System.out.println();
+		MyBitSet allbits = BinaryUtil.getBitsInteresse(buffer, 200);
+		int tamanho = BinaryUtil.toInt(allbits.slice(0, PACKAGESIZE), true);
 
-		MyBitSet rt = new MyBitSet(pacoteSize);
-		for(int i = 0; i < pacoteSize; i++) {
-			rt.set(bitsInteresse[i], i);
-		}
-		//System.out.println("[s] receive: " + rt.toString());
-		return rt;
+		MyBitSet data = allbits.slice(PACKAGESIZE, tamanho);
+		
+		System.out.println(String.format("[receivePackage] tamanho: %s", tamanho));
+		System.out.println(String.format("[receivePackage] data: %s [%s]", data.toString(), data.size()));
+
+		return data;
 	}
 	
 	public static RespostaServidor parserMensagemServer(MyBitSet input) {

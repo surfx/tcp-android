@@ -1,11 +1,18 @@
 package br.main.tcpip.tratarMensagens;
 
+import java.awt.Point;
+
+import br.main.controles.Audio;
+import br.main.controles.LockScreen;
+import br.main.controles.MouseControl;
 import br.main.tcpip.interfaces.ITratarRequisicaoBin;
 import br.main.util.BinaryUtil;
 import br.main.util.MyBitSet;
 
 public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 
+	private MouseControl mc = new MouseControl();
+	
 	@Override
 	public MyBitSet tratar(MyBitSet mensagem) {
 		if (mensagem == null || mensagem.size() <= 0) { return msgErro(); }
@@ -33,7 +40,11 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 	
 	private MyBitSet sinchronizar() {
 		MyBitSet retorno = BinaryUtil.toMBitByte((byte)1, 1, false);
-        retorno.append(75.26f); // TODO: get volume
+		try {
+			retorno.append(Audio.getMasterOutputVolume());	
+		} catch (Exception e) {
+			retorno.append(27.23f);
+		}
         return retorno;
 	}
 	
@@ -41,8 +52,11 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
         MyBitSet volumeEntrada = entrada.slice(3, 32);
         System.out.println(volumeEntrada.toString() + ", valor: " + BinaryUtil.byteArrayToFloat(volumeEntrada.toByte(), false));
         
+        float volume = BinaryUtil.byteArrayToFloat(volumeEntrada.toByte(), false)/100.0f;
+        Audio.setMasterOutputVolume(volume);
+        
         MyBitSet retorno = BinaryUtil.toMBitByte((byte)1, 1, false);
-        retorno.append(93.27f); // float - 4 bytes = 32 bits
+        retorno.append(Audio.getMasterOutputVolume()); // float - 4 bytes = 32 bits
         System.out.println(retorno.toString());	// 110111100010100010101110101000010
         
         return retorno;
@@ -53,6 +67,9 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 		MyBitSet retorno = BinaryUtil.toMBitByte((byte)0x1, 1, false);
 		retorno.append(BinaryUtil.toMBit(rt));
 		System.out.println("retorno: " + retorno.toString());
+		
+		//Shutdown.shutDown();
+		
 		return retorno;
 	}
 	
@@ -69,6 +86,19 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 		System.out.println("xc: " + xc.toString() + " = " + BinaryUtil.toInt(xc, true));
 		System.out.println("yc: " + wc.toString() + " = " + BinaryUtil.toInt(yc, true));
 		
+		int wcel = BinaryUtil.toInt(wc, true);
+		int hcel = BinaryUtil.toInt(hc, true);
+		int xcel = BinaryUtil.toInt(xc, true) + 50; // ajuste, android faz um -50 ?
+		int ycel = BinaryUtil.toInt(yc, true) + 130; // ajuste, android faz um -130 ?
+
+		Point screenSize = MouseControl.getScreenSize();
+		int wpc = screenSize.x;
+		int hpc = screenSize.y;
+		
+		int xPc = conversorXY(xcel, wcel, wpc);
+		int yPc = conversorXY(ycel, hcel, hpc);
+		mc.moveMouse(xPc, yPc);
+		
 		// --- retorno
 		String rt = "Recebido";
 		MyBitSet retorno = BinaryUtil.toMBitByte((byte)0x1, 1, false);
@@ -77,10 +107,17 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 		return retorno;
 	}
 	
+	private int conversorXY(int xyCel, int whCel, int whPc) {
+		return (xyCel * whPc)/whCel;
+	}
+	
 	private MyBitSet clickMouse() {
 		String rt = "Click Recebido";
 		MyBitSet retorno = BinaryUtil.toMBitByte((byte)0x1, 1, false);
 		retorno.append(BinaryUtil.toMBit(rt));
+		
+		mc.clickMouse();
+		
 		System.out.println("retorno: " + retorno.toString());
 		return retorno;
 	}
@@ -90,6 +127,9 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 		MyBitSet retorno = BinaryUtil.toMBitByte((byte)0x1, 1, false);
 		retorno.append(BinaryUtil.toMBit(rt));
 		System.out.println("retorno: " + retorno.toString());
+		
+		LockScreen.lockSreen();
+
 		return retorno;
 	}
 	

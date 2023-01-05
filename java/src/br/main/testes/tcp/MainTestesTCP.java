@@ -7,7 +7,7 @@ import br.main.util.tcp.TCPUtil;
 
 public class MainTestesTCP {
 
-	private final static int port = 7893;
+	private final static int port = 9876;
 	
 	public static void main(String[] args) {
 
@@ -18,32 +18,35 @@ public class MainTestesTCP {
 
 		//--------
 		
-		ServerTCPTest server = new ServerTCPTest();
-		server.startBin(port);
-		try { Thread.sleep(100); } catch (InterruptedException e) { }
+//		ServerTCPTest server = new ServerTCPTest();
+//		server.startBin(port);
+//		try { Thread.sleep(100); } catch (InterruptedException e) { }
 
-		new ClientTCPTest(47).startBin(getMsgSinchronizar() , "localhost", port, mbit -> tratarMensagemSinchronizar(mbit));
-		try { Thread.sleep(200); } catch (InterruptedException e) { }
+		//--------
+		
+//		new ClientTCPTest(47).startBin(getMsgSinchronizar() , "localhost", port, mbit -> tratarMensagemSinchronizar(mbit));
+//		try { Thread.sleep(200); } catch (InterruptedException e) { }
 		
 		new ClientTCPTest(47).startBin(getMsgAlterarVolume() , "localhost", port, mbit -> tratarMensagemAlterarVolume(mbit));
 		try { Thread.sleep(200); } catch (InterruptedException e) { }
-
-		new ClientTCPTest(47).startBin(getMsgDesligarPC() , "localhost", port, mbit -> tratarMensagemDesligarPC(mbit));
-		try { Thread.sleep(200); } catch (InterruptedException e) { }
-		
-		new ClientTCPTest(47).startBin(getMsgMouseMove() , "localhost", port, mbit -> tratarMensagemMouseMove(mbit));
-		try { Thread.sleep(200); } catch (InterruptedException e) { }
-
-		new ClientTCPTest(47).startBin(getMsgClickMouse() , "localhost", port, mbit -> tratarMensagemClickMouse(mbit));
-		try { Thread.sleep(200); } catch (InterruptedException e) { }
-
-		new ClientTCPTest(47).startBin(getMsgLockScreen() , "localhost", port, mbit -> tratarMensagemLockScreen(mbit));
-		try { Thread.sleep(200); } catch (InterruptedException e) { }
+//
+//		new ClientTCPTest(47).startBin(getMsgDesligarPC() , "localhost", port, mbit -> tratarMensagemDesligarPC(mbit));
+//		try { Thread.sleep(200); } catch (InterruptedException e) { }
+//		
+//		new ClientTCPTest(47).startBin(getMsgMouseMove() , "localhost", port, mbit -> tratarMensagemMouseMove(mbit));
+//		try { Thread.sleep(200); } catch (InterruptedException e) { }
+//
+//		new ClientTCPTest(47).startBin(getMsgClickMouse() , "localhost", port, mbit -> tratarMensagemClickMouse(mbit));
+//		try { Thread.sleep(200); } catch (InterruptedException e) { }
+//
+//		new ClientTCPTest(47).startBin(getMsgLockScreen() , "localhost", port, mbit -> tratarMensagemLockScreen(mbit));
+//		try { Thread.sleep(200); } catch (InterruptedException e) { }
 		
 		try { Thread.sleep(800); } catch (InterruptedException e) { }
 		System.out.println("-- end");
-		server.stop();
-		System.exit(0);
+		
+		//server.stop();
+		//System.exit(0);
 	}
 	
 	// ---

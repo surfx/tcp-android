@@ -97,7 +97,7 @@ public class ServerTCPTest {
 		new Thread(() -> {
 			try (ServerSocket serverSocket = new ServerSocket(port)) {
 				if (timeout > 0) {serverSocket.setSoTimeout(timeout);}
-				System.out.println("[s] Server is listening on port " + port);
+				System.out.println("[s] Server bin is listening on port " + port);
 
 				while (executar) {
 					if (!executar) {
@@ -115,7 +115,7 @@ public class ServerTCPTest {
 							InputStream input = socket.getInputStream();
 							DataInputStream dis = new DataInputStream(input);
 							
-							MyBitSet recebido = TCPUtil.receive(dis);
+							MyBitSet recebido = TCPUtil.receivePackage(dis);
 							System.out.println("[s] recebido: " + recebido.toString());
 							
 							MyBitSet resposta = tratarRequests.tratar(recebido);
@@ -123,7 +123,7 @@ public class ServerTCPTest {
 							// -- send
 							OutputStream output = socket.getOutputStream();
 							DataOutputStream dos = new DataOutputStream(output);
-							TCPUtil.send(resposta, dos);
+							TCPUtil.sendPackage(resposta, dos);
 
 							socket.close();
 						} catch (IOException e) {

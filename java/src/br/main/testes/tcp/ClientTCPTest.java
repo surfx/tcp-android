@@ -64,13 +64,13 @@ public class ClientTCPTest {
 				DataOutputStream dos = new DataOutputStream(output);
 				
 				// -- send
-				TCPUtil.send(pacote, dos);
+				TCPUtil.sendPackage(pacote, dos);
 
 				// -- receive
 				InputStream input = socket.getInputStream();
 				DataInputStream dis = new DataInputStream(input);
 				
-				MyBitSet resposta = TCPUtil.receive(dis);
+				MyBitSet resposta = TCPUtil.receivePackage(dis);
 				tratarRespostaServer.accept(resposta);
 				System.out.println("[c] resposta: " + resposta.toString());
 

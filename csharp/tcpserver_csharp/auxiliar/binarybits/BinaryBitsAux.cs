@@ -180,6 +180,129 @@ namespace auxiliar.binarybits
 
 
 
+        //--------
+        #region convert BitArray
+        public static byte[] toByteArray(BitArray input){
+            bool[] cbool = new bool[input.Count];
+            for (int i = 0; i < input.Count; i++) { cbool[i] = input.Get(i); }
+
+            byte[] convertido = toByteN(cbool);
+
+            // BinaryBitsAux.printBytes(convertido);
+            // Console.WriteLine("convertido:\t\t{0} [{1}]", BinaryBitsAux.ToBitString(convertido), convertido.Length);
+
+            return convertido;
+        }
+
+        public static BitArray returnBitArray(byte[] input, int size){
+            BitArray bitAux = new BitArray(input);
+            BitArray retorno = new BitArray(size);
+            for(int i = 0; i < retorno.Count; i++){
+                retorno.Set(i, bitAux[i]);
+            }
+            //Console.WriteLine("retorno:\t\t{0} [{1}]", BinaryBitsAux.ToBitString(retorno), retorno.Length);
+            return retorno;
+        }
+
+        public static byte[] toByteN(bool[] input) {
+            if (input == null || input.Length <= 0) { return new byte[] { 0x0 }; }
+            
+            // corrige o tamanho do input para criar grupos de 8 bits
+            input = preencherBits(input);
+            
+            // separar em grupos de 8 bits
+            bool[] bits = new bool[8];
+            int numerogrupos = (input.Length / 8) + (input.Length % 8 == 0 ? 0 : 1);
+            byte[] rt = new byte[numerogrupos];
+            
+            int pos = 0;
+            int group = 0;
+            for (int i = 0; i < input.Length; i++) {
+                bits[pos++] = input[i];
+                if (i != 0 && (i+1) % 8 == 0) {
+                    pos = 0;
+                    rt[group++] = toByte(bits, true);
+                }
+            }
+            
+            return rt;
+        }
+
+        public static bool[] preencherBits(bool[] input) {
+            return preencherBits(input, true);
+        }
+        public static bool[] preencherBits(bool[] input, bool appendFinal) {
+            if (input == null || input.Length <= 0) { return input; }
+            int length = input.Length;
+            int falta = length % 8 == 0 ? 0 : ((length / 8) + 1) * 8 - length;
+            
+            if (falta <= 0) { return input; }
+            bool[] rt = new bool[length + falta];
+            if (appendFinal) {
+                for (int i = 0; i < length; i++) {
+                    rt[i] = input[i];
+                }
+                for (int i = length; i < falta; i++) {
+                    rt[i] = false;
+                }
+            } else {
+                for (int i = 0; i < falta; i++) {
+                    rt[i] = false;
+                }
+                int pos = 0;
+                for (int i = falta; i < length + falta; i++) {
+                    rt[i] = input[pos++];
+                }
+            }
+            input = rt;
+            return rt;
+        }
+
+        public static byte toByte(bool[] bits, bool bigendian) {
+            
+            // 0xF = 1111
+            byte[] aux = new byte[8];
+            for(int i = 0; i < 8; i++) {
+                aux[i] = (byte)((bits[i]?1:0) & 0xF);
+                //System.out.println(toStr(aux[i]));
+            }
+
+            byte[] mask = new byte[] {
+                0x1,  		// 0000 0001
+                0x2,  		// 0000 0010
+                0x4,  		// 0000 0100
+                0x8,  		// 0000 1000
+                0x10, 		// 0001 0000
+                0x20, 		// 0010 0000
+                0x40, 		// 0100 0000
+                (byte) 0x80 // 1000 0000
+            };
+            
+            if (bigendian) {
+                aux[0] &= mask[0];	// 0x1 - 0000 0001
+                for(int i = 1; i < 8; i++) {
+                    aux[i] <<= i;
+                    aux[i] &= mask[i];
+                }
+            } else {
+                // littleendian - ao contrário
+                for(int i = 0; i < 8; i++) {
+                    aux[i] <<= 7-i;
+                    aux[i] &= mask[7-i];
+                }
+            }
+            //for(int i = 0; i < 8; i++) { System.out.println(toStr(aux[i])); }
+            
+            byte bf = 0x0;
+            for(int i = 0; i < 8; i++) {
+                bf |= aux[i];
+            }
+            bf &= 0xFF;	// 1111 1111
+            //System.out.println(toStr(bf));
+            return bf;
+        }
+        #endregion
+
     }
 
 }

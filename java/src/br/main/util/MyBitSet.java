@@ -99,6 +99,13 @@ public class MyBitSet {
 		for (int i = 0; i < _size; i++) { _array[i] = input[i] == 1; }
 	}
 	
+	public void fromBoolean(boolean[] input) {
+		if (input == null || input.length <= 0) { return; }
+		_size = input.length;
+		_array = new boolean[size()];
+		for (int i = 0; i < _size; i++) { _array[i] = input[i]; }
+	}
+	
 	/**
 	 * separa em grupos de 8 bits e converte para um vetor de byte.<br />
 	 * Já faz a conversão (!)
