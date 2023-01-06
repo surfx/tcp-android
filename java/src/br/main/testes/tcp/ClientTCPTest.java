@@ -12,7 +12,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.function.Consumer;
 
-import br.main.RespostaServidor;
 import br.main.util.MyBitSet;
 import br.main.util.tcp.TCPUtil;
 
