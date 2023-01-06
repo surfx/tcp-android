@@ -24,8 +24,8 @@ public class MainTestesTCP {
 
 		//--------
 		
-//		new ClientTCPTest(47).startBin(getMsgSinchronizar() , "localhost", port, mbit -> tratarMensagemSinchronizar(mbit));
-//		try { Thread.sleep(200); } catch (InterruptedException e) { }
+		new ClientTCPTest(47).startBin(getMsgSinchronizar() , "localhost", port, mbit -> tratarMensagemSinchronizar(mbit));
+		try { Thread.sleep(200); } catch (InterruptedException e) { }
 		
 //		new ClientTCPTest(47).startBin(getMsgAlterarVolume() , "localhost", port, mbit -> tratarMensagemAlterarVolume(mbit));
 //		try { Thread.sleep(200); } catch (InterruptedException e) { }
