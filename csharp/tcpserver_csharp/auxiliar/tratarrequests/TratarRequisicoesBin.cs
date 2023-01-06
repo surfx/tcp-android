@@ -68,10 +68,10 @@ namespace auxiliar.tratarrequests
         {
             Console.WriteLine("Shutdown windows");
 
-            // ProcessStartInfo psi = new ProcessStartInfo("shutdown","/s /t 0");
-            // psi.CreateNoWindow = true;
-            // psi.UseShellExecute = false;
-            // Process.Start(psi);
+            ProcessStartInfo psi = new ProcessStartInfo("shutdown","/s /t 0");
+            psi.CreateNoWindow = true;
+            psi.UseShellExecute = false;
+            Process.Start(psi);
 
             String rt = "Desligando";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));

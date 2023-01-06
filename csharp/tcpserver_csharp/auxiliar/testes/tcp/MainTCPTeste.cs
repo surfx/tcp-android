@@ -11,7 +11,7 @@ namespace auxiliar.testes.tcp
         public static void testeTCPServerClient(){
             new ServerTCP(port).start();
 
-            Thread.Sleep(100);
+            //Thread.Sleep(100);
 
             //new ClientTCP("localhost", port).sendMessage(msgSincronizar(), tratarMsgSincronizar);
             //new ClientTCP("localhost", port).sendMessage(msgAlterarVolume(), tratarMsgAlterarVolume);
