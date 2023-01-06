@@ -14,11 +14,13 @@ class Program
 
     static void Main(string[] args)
     {
-        new TcpServer(port).start();
+        //new TcpServer(port).start();
         //TestesBinaryBits.testeEntrada5(BinaryBitsAux.to1Bit(true));
 
-        //MainTCPTeste.testeTCPServerClient();
+        MainTCPTeste.testeTCPServerClient();
         //testeToByte();
+
+        //teste1();
     }
 
     private static void testeToByte(){
@@ -51,6 +53,15 @@ class Program
 
     }
 
+    private static void teste1(){
+        //Func<int, int, int> d1 = delegate(int x, int y) { return x * y; };
+        teste2( (x,y)=> { return x*y; }, 3, 8 );
+    }
+
+    private static void teste2(Func<int, int, int> apply, int v1, int v2){
+        int v3 = apply(v1,v2);
+        Console.WriteLine("v3: {0}", v3);
+    }
     
 
 }

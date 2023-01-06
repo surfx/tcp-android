@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using AudioSwitcher.AudioApi.CoreAudio;
 
-namespace auxiliar
+namespace auxiliar.tratarrequests
 {
     public class TratarRequisicoes
     {
