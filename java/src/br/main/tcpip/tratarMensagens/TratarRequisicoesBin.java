@@ -52,11 +52,22 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
         MyBitSet volumeEntrada = entrada.slice(3, 32);
         System.out.println(volumeEntrada.toString() + ", valor: " + BinaryUtil.byteArrayToFloat(volumeEntrada.toByte(), false));
         
-        float volume = BinaryUtil.byteArrayToFloat(volumeEntrada.toByte(), false)/100.0f;
-        Audio.setMasterOutputVolume(volume);
+        float volume = BinaryUtil.byteArrayToFloat(volumeEntrada.toByte(), false);
+        
+        try {
+        	Audio.setMasterOutputVolume(volume);	
+		} catch (Exception e) {
+		}
+        
         
         MyBitSet retorno = BinaryUtil.toMBitByte((byte)1, 1, false);
-        retorno.append(Audio.getMasterOutputVolume()); // float - 4 bytes = 32 bits
+        
+        try {
+        	retorno.append(Audio.getMasterOutputVolume()); // float - 4 bytes = 32 bits	
+		} catch (Exception e) {
+			retorno.append(67.23f);
+		}
+        
         System.out.println(retorno.toString());	// 110111100010100010101110101000010
         
         return retorno;

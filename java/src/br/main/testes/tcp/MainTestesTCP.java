@@ -18,18 +18,18 @@ public class MainTestesTCP {
 
 		//--------
 		
-//		ServerTCPTest server = new ServerTCPTest();
-//		server.startBin(port);
-//		try { Thread.sleep(100); } catch (InterruptedException e) { }
+		ServerTCPTest server = new ServerTCPTest();
+		server.startBin(port);
+		try { Thread.sleep(100); } catch (InterruptedException e) { }
 
 		//--------
 		
 //		new ClientTCPTest(47).startBin(getMsgSinchronizar() , "localhost", port, mbit -> tratarMensagemSinchronizar(mbit));
 //		try { Thread.sleep(200); } catch (InterruptedException e) { }
 		
-		new ClientTCPTest(47).startBin(getMsgAlterarVolume() , "localhost", port, mbit -> tratarMensagemAlterarVolume(mbit));
-		try { Thread.sleep(200); } catch (InterruptedException e) { }
-//
+//		new ClientTCPTest(47).startBin(getMsgAlterarVolume() , "localhost", port, mbit -> tratarMensagemAlterarVolume(mbit));
+//		try { Thread.sleep(200); } catch (InterruptedException e) { }
+
 //		new ClientTCPTest(47).startBin(getMsgDesligarPC() , "localhost", port, mbit -> tratarMensagemDesligarPC(mbit));
 //		try { Thread.sleep(200); } catch (InterruptedException e) { }
 //		
@@ -38,7 +38,7 @@ public class MainTestesTCP {
 //
 //		new ClientTCPTest(47).startBin(getMsgClickMouse() , "localhost", port, mbit -> tratarMensagemClickMouse(mbit));
 //		try { Thread.sleep(200); } catch (InterruptedException e) { }
-//
+
 //		new ClientTCPTest(47).startBin(getMsgLockScreen() , "localhost", port, mbit -> tratarMensagemLockScreen(mbit));
 //		try { Thread.sleep(200); } catch (InterruptedException e) { }
 		
@@ -64,7 +64,7 @@ public class MainTestesTCP {
 	// ---
 	private static MyBitSet getMsgAlterarVolume() {
         MyBitSet entrada = BinaryUtil.toMBitByte((byte)1, 3, false);
-        entrada.append(13.97f); // float - 4 bytes = 32 bits
+        entrada.append(60.97f); // float - 4 bytes = 32 bits
         return entrada;
 	}
 	private static void tratarMensagemAlterarVolume(MyBitSet retorno) {
