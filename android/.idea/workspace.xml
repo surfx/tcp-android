@@ -14,28 +14,26 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="56bf9312-77a7-4b5a-ab12-424fc6332399" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" afterDir="false" />
+    <list default="true" id="56bf9312-77a7-4b5a-ab12-424fc6332399" name="Changes" comment="java android csharp">
+      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/tcpip/binary/TCPClientBinary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/BinaryUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/MyBitSet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/RespostaServidor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/TCPUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/TestesBinario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MouseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MouseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/tcp/MainTCPTeste.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/tcp/MainTCPTeste.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\zero_\.android\avd\Pixel_3a_API_33_x86_64.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[RF8M22010MM]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -160,5 +158,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="java android csharp" />
+    <option name="LAST_COMMIT_MESSAGE" value="java android csharp" />
   </component>
 </project>

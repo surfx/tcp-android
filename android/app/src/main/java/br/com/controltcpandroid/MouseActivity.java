@@ -13,14 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tcpandroid.R;
 
 import br.com.controltcpandroid.tcpip.TcpClient;
+import br.com.controltcpandroid.tcpip.binary.TCPClientBinary;
+import br.com.controltcpandroid.util.BinaryUtil;
+import br.com.controltcpandroid.util.MyBitSet;
+import br.com.controltcpandroid.util.RespostaServidor;
+import br.com.controltcpandroid.util.TCPUtil;
 
 @SuppressWarnings("CommentedOutCode")
 public class MouseActivity extends AppCompatActivity {
 
-    private TcpClient client;
     private int porta;
     private String ip;
     private TextView txtInformacoes;
+
+    private TCPClientBinary getClient(){
+        return new TCPClientBinary(ip, porta);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -30,8 +38,6 @@ public class MouseActivity extends AppCompatActivity {
 
         txtInformacoes = findViewById(R.id.txtInformacoes);
         Button btnClickMouse = findViewById(R.id.btnClickMouse);
-
-        client = new TcpClient();
 
         getExtras();
 
@@ -52,14 +58,21 @@ public class MouseActivity extends AppCompatActivity {
     @SuppressWarnings("StringOperationCanBeSimplified")
     @SuppressLint("SetTextI18n")
     private void clickMouse() {
+
         // 4 - click mouse
-        client.enviarMensagem(ip, porta, "4", mensagem -> runOnUiThread(() -> {
-            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
-                txtInformacoes.setText("Erro ao enviar click");
-                return;
-            }
-            txtInformacoes.setText("mensagem: " + mensagem);
+        getClient().send(BinaryUtil.toMBitByte((byte)4, 3, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            txtInformacoes.setText("mensagem: " + msg.toString());
         }));
+//        client.enviarMensagem(ip, porta, "4", mensagem -> runOnUiThread(() -> {
+//            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
+//                txtInformacoes.setText("Erro ao enviar click");
+//                return;
+//            }
+//            txtInformacoes.setText("mensagem: " + mensagem);
+//        }));
     }
 
     @SuppressWarnings({"SameReturnValue", "StringOperationCanBeSimplified"})
@@ -67,19 +80,30 @@ public class MouseActivity extends AppCompatActivity {
     private boolean onTouch(@SuppressWarnings("unused") View v, MotionEvent event, int width, int height) {
         //System.out.println("------------------------------------------");
         //System.out.println("event: " + event);
-//            System.out.println(event.getX() + ", " + event.getY() + " / ("+width+", "+height+")");
-
-        String mensagemSend = "3";
-        mensagemSend += width + "x" + height + "," + (int) event.getX() + "x" + (int) event.getY();
+        //System.out.println(event.getX() + ", " + event.getY() + " / ("+width+", "+height+")");
 
         // 3 - send mouse pos
-        client.enviarMensagem(ip, porta, mensagemSend, mensagem -> runOnUiThread(() -> {
-            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
-                txtInformacoes.setText("Erro ao enviar informações do mouse");
-                return;
-            }
-            txtInformacoes.setText("mensagem: " + mensagem);
+        MyBitSet entrada = BinaryUtil.toMBitByte((byte)3, 3, false);
+        entrada.append(BinaryUtil.toMBit(width, 13, false));
+        entrada.append(BinaryUtil.toMBit(height, 13, false));
+        entrada.append(BinaryUtil.toMBit((int) event.getX(), 13, false));
+        entrada.append(BinaryUtil.toMBit((int) event.getY(), 13, false));
+
+        getClient().send(entrada, retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            txtInformacoes.setText("mensagem: " + msg.toString());
         }));
+
+
+//        client.enviarMensagem(ip, porta, mensagemSend, mensagem -> runOnUiThread(() -> {
+//            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
+//                txtInformacoes.setText("Erro ao enviar informações do mouse");
+//                return;
+//            }
+//            txtInformacoes.setText("mensagem: " + mensagem);
+//        }));
 
         return true;
     }

@@ -19,11 +19,15 @@ import java.util.TimerTask;
 import br.com.controltcpandroid.arquivos.Arquivos;
 import br.com.controltcpandroid.dialogs.DialogSimNao;
 import br.com.controltcpandroid.tcpip.TcpClient;
+import br.com.controltcpandroid.tcpip.binary.TCPClientBinary;
 import br.com.controltcpandroid.testes.TestesBinario;
+import br.com.controltcpandroid.util.BinaryUtil;
+import br.com.controltcpandroid.util.MyBitSet;
+import br.com.controltcpandroid.util.RespostaServidor;
+import br.com.controltcpandroid.util.TCPUtil;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TcpClient client;
     private SeekBar mySeekBar;
     private TextView lblVolume, lblInformacoes;
     private EditText txtPorta, txtIp;
@@ -37,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private final int portaPadrao = 9876;
     private final String ipPadrao = "192.168.0.213";
 
+    private TCPClientBinary getClient(){
+        return new TCPClientBinary(getIp(), getPort());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        client = new TcpClient();
-
         mySeekBar = findViewById(R.id.mySeekBar);
         lblVolume = findViewById(R.id.txtVolume);
         lblInformacoes = findViewById(R.id.lblInformacoes);
@@ -238,21 +243,15 @@ public class MainActivity extends AppCompatActivity {
     @SuppressWarnings("UnusedAssignment")
     @SuppressLint("SetTextI18n")
     private void sincronizar() {
-        int porta = getPort();
-        String ip = getIp();
-
         // 0 - sincronizar
-        client.enviarMensagem(ip, porta, "0", mensagem -> runOnUiThread(() -> {
-            //noinspection StringOperationCanBeSimplified
-            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) { lblInformacoes.setText("Erro ao sincronizar"); return; }
-            lblInformacoes.setText("mensagem: " + mensagem);
-            String volume = mensagem.substring(1);
+        getClient().send(BinaryUtil.toMBitByte((byte)0, 3, false), retorno -> runOnUiThread(() -> {
+            boolean bit0 = retorno.get(0);
+            System.out.println("bit0:\t\t" + (bit0?1:0));
 
-            float volumeFloat = -1.0F;
-            try { volumeFloat = Float.parseFloat(volume); } catch (Exception e) { return; }
-            if (volumeFloat < 0) { return; } //erro
-            volumeFloat *= 100.0F;
+            MyBitSet volumeRetornoParser = retorno.slice(1, 32);
+            System.out.println(volumeRetornoParser.toString() + ", valor: " + BinaryUtil.byteArrayToFloat(volumeRetornoParser.toByte(), false));
 
+            float volumeFloat = BinaryUtil.byteArrayToFloat(volumeRetornoParser.toByte(), false);
             int volumeInteger = -1;
             try { volumeInteger = Math.round(volumeFloat); } catch (Exception e) { return; }
             if (volumeInteger < 0) { return; } //erro
@@ -260,47 +259,83 @@ public class MainActivity extends AppCompatActivity {
             mySeekBar.setProgress(volumeInteger);
             lblInformacoes.setText("volume: " + volumeInteger);
         }));
+
+//        getClient().enviarMensagem(ip, porta, "0", mensagem -> runOnUiThread(() -> {
+//            //noinspection StringOperationCanBeSimplified
+//            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) { lblInformacoes.setText("Erro ao sincronizar"); return; }
+//            lblInformacoes.setText("mensagem: " + mensagem);
+//            String volume = mensagem.substring(1);
+//
+//            float volumeFloat = -1.0F;
+//            try { volumeFloat = Float.parseFloat(volume); } catch (Exception e) { return; }
+//            if (volumeFloat < 0) { return; } //erro
+//            volumeFloat *= 100.0F;
+//
+//            int volumeInteger = -1;
+//            try { volumeInteger = Math.round(volumeFloat); } catch (Exception e) { return; }
+//            if (volumeInteger < 0) { return; } //erro
+//
+//            mySeekBar.setProgress(volumeInteger);
+//            lblInformacoes.setText("volume: " + volumeInteger);
+//        }));
     }
 
     @SuppressLint("SetTextI18n")
     private void alterarVolume(int volume) {
-        int porta = getPort();
-        String ip = getIp();
-        float volumeFloat = Float.parseFloat(volume + "") / 100.0F;
+        float volumeFloat = Float.parseFloat(volume + "");
+
+        MyBitSet entrada = BinaryUtil.toMBitByte((byte)1, 3, false);
+        entrada.append(volumeFloat); // float - 4 bytes = 32 bits
 
         // 1 - alterar volume
-        client.enviarMensagem(ip, porta, "1" + volumeFloat, mensagem -> runOnUiThread(() -> {
-            //noinspection StringOperationCanBeSimplified
-            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
-                lblInformacoes.setText("Erro ao alterar o volume");
-                return;
-            }
-            lblInformacoes.setText("mensagem: " + mensagem);
+        getClient().send(entrada, retorno -> runOnUiThread(() ->{
+            boolean bit0 = retorno.get(0);
+            System.out.println("bit0:\t\t" + (bit0?1:0));
+
+            MyBitSet volumeRetornoParser = retorno.slice(1, 32);
+            System.out.println(volumeRetornoParser.toString() + ", valor: " + BinaryUtil.byteArrayToFloat(volumeRetornoParser.toByte(), false));
+
+            lblInformacoes.setText("mensagem: " + BinaryUtil.byteArrayToFloat(volumeRetornoParser.toByte(), false));
         }));
+//        client.enviarMensagem(ip, porta, "1" + volumeFloat, mensagem -> runOnUiThread(() -> {
+//            //noinspection StringOperationCanBeSimplified
+//            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
+//                lblInformacoes.setText("Erro ao alterar o volume");
+//                return;
+//            }
+//            lblInformacoes.setText("mensagem: " + mensagem);
+//        }));
     }
 
     @SuppressLint("SetTextI18n")
     private void desligar() {
-        int porta = getPort();
-        String ip = getIp();
-
         // 2 - desligar
-        client.enviarMensagem(ip, porta, "2", mensagem -> runOnUiThread(() -> {
-            //noinspection StringOperationCanBeSimplified
-            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
-                lblInformacoes.setText("Erro ao pedir para desligar");
-                return;
-            }
-            lblInformacoes.setText("mensagem: " + mensagem);
+        getClient().send(BinaryUtil.toMBitByte((byte)2, 3, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            lblInformacoes.setText("mensagem: " + msg.toString());
         }));
+//        client.enviarMensagem(ip, porta, "2", mensagem -> runOnUiThread(() -> {
+//            //noinspection StringOperationCanBeSimplified
+//            if (mensagem == null || mensagem.isEmpty() || !mensagem.substring(0, 1).equals("1")) {
+//                lblInformacoes.setText("Erro ao pedir para desligar");
+//                return;
+//            }
+//            lblInformacoes.setText("mensagem: " + mensagem);
+//        }));
     }
 
     private void lockScreen(){
-        int porta = getPort();
-        String ip = getIp();
         lblInformacoes.setText("lockScreen Method");
 
-        TestesBinario.testeMensagensBin();
+        getClient().send(BinaryUtil.toMBitByte((byte)5, 3, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            lblInformacoes.setText("mensagem: " + msg.toString());
+        }));
+
     }
 
 }

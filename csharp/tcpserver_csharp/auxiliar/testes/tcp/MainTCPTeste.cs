@@ -9,7 +9,7 @@ namespace auxiliar.testes.tcp
         private static int port = 9876;
 
         public static void testeTCPServerClient(){
-            //new ServerTCP(port).start();
+            new ServerTCP(port).start();
 
             Thread.Sleep(100);
 
@@ -18,7 +18,7 @@ namespace auxiliar.testes.tcp
             //new ClientTCP("localhost", port).sendMessage(msgDesligarPC(), tratarMsgDesligarPC);
             //new ClientTCP("localhost", port).sendMessage(msgMouseMove(), tratarMsgMouseMove);
             //new ClientTCP("localhost", port).sendMessage(msgClickMouse(), tratarMsgClickMouse);
-            new ClientTCP("localhost", port).sendMessage(msgLockScreen(), tratarMsgLockScreen);
+            //new ClientTCP("localhost", port).sendMessage(msgLockScreen(), tratarMsgLockScreen);
 
         }
 
