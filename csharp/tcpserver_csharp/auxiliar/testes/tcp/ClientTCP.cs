@@ -8,13 +8,18 @@ namespace auxiliar.testes.tcp
 {
     public class ClientTCP
     {
+        private int port = 9876;
+        private string server="localhost";
 
-        public static void sendMessage(BitArray pacote, String server="localhost", int port = 9876)
+        public ClientTCP(string server="localhost", int port = 9876){
+            this.server = server;
+            this.port = port;
+        }
+
+        public void sendMessage(BitArray pacote, Action<BitArray> tratarRespostaServer)
         {
-
             new Thread(new ThreadStart(() =>
             {
-
                 try
                 {
 
@@ -26,18 +31,11 @@ namespace auxiliar.testes.tcp
                     TCPUtil.sendPackage(pacote, stream);
 
                     //---------------------------------------------
-
-
                     // Receive the server response.
                     BitArray resposta = TCPUtil.receivePackage(stream);
                     Console.WriteLine("[c] Received:\t\t{0} [{1}]", BinaryBitsAux.ToBitString(resposta), resposta.Length);
 
-                    // -- parse retorno
-                    bool bit0 = BinaryBitsAux.splitBitArray(resposta, 0, 1)[0];
-                    BitArray volumeRetornoParser = BinaryBitsAux.splitBitArray(resposta, 1, 32);
-
-                    Console.WriteLine("bit0:\t\t\t{0}", bit0);
-                    Console.WriteLine("volumeRetornoParser: \t{0}, valor: {1}", BinaryBitsAux.ToBitString(volumeRetornoParser), BinaryBitsAux.toFloat(volumeRetornoParser));
+                    tratarRespostaServer(resposta);
 
                     stream.Close();
                     client.Close();

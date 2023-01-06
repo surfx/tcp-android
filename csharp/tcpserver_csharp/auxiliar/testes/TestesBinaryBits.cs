@@ -178,16 +178,13 @@ namespace auxiliar.testes
 
             Console.WriteLine("-----------------ENTRADA-------------------");
             // 3 + 32 bits
-            BitArray entrada = BinaryBitsAux.Combine(BinaryBitsAux.toBits(0, 3), 75.26f);
+            BitArray entrada = BinaryBitsAux.toBits(0, 3);
             Console.WriteLine(BinaryBitsAux.ToBitString(entrada));
 
             Console.WriteLine("-----------------PARSE ENTRADA-------------------");
             // -- parse entrada0
             BitArray cod = BinaryBitsAux.splitBitArray(entrada, 0, 3);
             Console.WriteLine("cod: {0} = {1}", BinaryBitsAux.ToBitString(cod), BinaryBitsAux.toInt(cod, true));
-
-            BitArray volumeEntrada = BinaryBitsAux.splitBitArray(entrada, 3, 32);
-            Console.WriteLine(BinaryBitsAux.ToBitString(volumeEntrada));
 
             Console.WriteLine("----------------RETORNO------------------");
             // -- resposta
@@ -212,7 +209,7 @@ namespace auxiliar.testes
             // retorno: 1 bit (valor: 1 - codOk) + 4 bytes (float volume) = 32 bits
 
             Console.WriteLine("-----------------ENTRADA-------------------");
-            BitArray entrada = BinaryBitsAux.Combine(BinaryBitsAux.toBits(1, 3), 13.97f); // 13.97 float - 4 bytes - 32 bits
+            BitArray entrada = BinaryBitsAux.Combine(BinaryBitsAux.toBits(1, 3), 13.97f); // float - 4 bytes - 32 bits
             Console.WriteLine(BinaryBitsAux.ToBitString(entrada));
 
             Console.WriteLine("-----------------PARSE ENTRADA-------------------");

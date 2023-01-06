@@ -2,6 +2,7 @@ using System.Collections;
 using System.Net;
 using System.Net.Sockets;
 using auxiliar.binarybits;
+using auxiliar.tratarrequests;
 
 namespace auxiliar.testes.tcp
 {
@@ -45,7 +46,7 @@ namespace auxiliar.testes.tcp
         */
         private void tcpServer()
         {
-            TratarRequisicoes tratarRequisicoes = new TratarRequisicoes();
+            TratarRequisicoesBin tratarRequests = new TratarRequisicoesBin();
 
             new Thread(new ThreadStart(() =>
             {
@@ -70,24 +71,13 @@ namespace auxiliar.testes.tcp
 
                         NetworkStream stream = client.GetStream();
 
+                        // -- receive
                         BitArray entrada = TCPUtil.receivePackage(stream);
                         //----------------------------
 
-                        BitArray cod = BinaryBitsAux.splitBitArray(entrada, 0, 3);
-                        Console.WriteLine("[s] cod: {0} = {1}", BinaryBitsAux.ToBitString(cod), BinaryBitsAux.toInt(cod, true));
+                        BitArray resposta = tratarRequests.tratar(entrada);
 
-                        BitArray volumeEntrada = BinaryBitsAux.splitBitArray(entrada, 3, 32);
-                        float volume = BinaryBitsAux.toFloat(volumeEntrada);
-                        Console.WriteLine("[s] volumeEntrada: {0}, volume: {1}", BinaryBitsAux.ToBitString(volumeEntrada), volume);
-
-                        //-----------------
-                        Console.WriteLine("----------------RETORNO------------------");
-                        // -- resposta
-                        // 1 + 32 bits
-                        BitArray retorno = BinaryBitsAux.Combine(codOk, 75.26f); // 75.26 float - 4 bytes = 32 bits
-                        Console.WriteLine("[s] retorno: {0}", BinaryBitsAux.ToBitString(retorno));
-
-                        TCPUtil.sendPackage(retorno, stream);
+                        TCPUtil.sendPackage(resposta, stream);
                         
                         //resposta = tratarRequisicoes.tratarRequisicoesTCP(data);
                         stream.Close();
