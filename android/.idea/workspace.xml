@@ -15,18 +15,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="56bf9312-77a7-4b5a-ab12-424fc6332399" name="Changes" comment="java android csharp">
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/tcpip/binary/TCPClientBinary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/BinaryUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/MyBitSet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/RespostaServidor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/util/TCPUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MouseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MouseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/tcp/MainTCPTeste.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/tcp/MainTCPTeste.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +144,14 @@
       <option name="presentableId" value="Default" />
       <updated>1672412088163</updated>
     </task>
+    <task id="LOCAL-00001" summary="java android csharp">
+      <created>1672972330684</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1672972330684</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

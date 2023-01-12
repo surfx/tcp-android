@@ -8,13 +8,16 @@ csharp/tcpserver_csharp/bin/Debug/net7.0/
 
 *.dll
 *.pdb
-csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache
-csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.GeneratedMSBuildEditorConfig.editorconfig
+/obj/Debug/net7.0/
+
+obj\Debug\net7.0\
+\bin\
+
 csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll
 csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb
-csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.assets.cache
 csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.csproj.CoreCompileInputs.cache
 csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.dll
+csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.GeneratedMSBuildEditorConfig.editorconfig
 csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb
 csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll
 csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll
