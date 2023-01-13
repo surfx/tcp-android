@@ -15,8 +15,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="56bf9312-77a7-4b5a-ab12-424fc6332399" name="Changes" comment="java android csharp">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-v26/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MouseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/MouseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/br/com/controltcpandroid/testes/TestesBinario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_mouse.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_mouse.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/tcp/ServerTCP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/auxiliar/testes/tcp/ServerTCP.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/bin/Debug/net7.0/tcpserver_csharp.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll" afterDir="false" />

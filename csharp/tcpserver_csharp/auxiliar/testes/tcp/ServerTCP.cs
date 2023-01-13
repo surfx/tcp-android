@@ -33,7 +33,7 @@ namespace auxiliar.testes.tcp
                     Console.WriteLine(ip.ToString());
                 }
             }
-            Console.WriteLine("Server TCP port " + _port);
+            Console.WriteLine("Server TCP bin port " + _port);
             Console.WriteLine("--------------------");
         }
 

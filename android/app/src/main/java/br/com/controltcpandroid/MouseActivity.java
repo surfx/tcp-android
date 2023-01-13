@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tcpandroid.R;
 
-import br.com.controltcpandroid.tcpip.TcpClient;
 import br.com.controltcpandroid.tcpip.binary.TCPClientBinary;
 import br.com.controltcpandroid.util.BinaryUtil;
 import br.com.controltcpandroid.util.MyBitSet;
@@ -37,7 +36,7 @@ public class MouseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mouse);
 
         txtInformacoes = findViewById(R.id.txtInformacoes);
-        Button btnClickMouse = findViewById(R.id.btnClickMouse);
+        ImageButton btnClickMouse = findViewById(R.id.btnClickMouse);
 
         getExtras();
 

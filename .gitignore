@@ -21,3 +21,10 @@ csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.GeneratedMSBuildEditor
 csharp/tcpserver_csharp/obj/Debug/net7.0/tcpserver_csharp.pdb
 csharp/tcpserver_csharp/obj/Debug/net7.0/ref/tcpserver_csharp.dll
 csharp/tcpserver_csharp/obj/Debug/net7.0/refint/tcpserver_csharp.dll
+java/bin/
+java/bin
+
+java\bin\
+java\bin
+java/bin/br/main/controles/ShutdownLinux.class
+java/bin/br/main/Main.class

@@ -6,8 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -18,9 +18,7 @@ import java.util.TimerTask;
 
 import br.com.controltcpandroid.arquivos.Arquivos;
 import br.com.controltcpandroid.dialogs.DialogSimNao;
-import br.com.controltcpandroid.tcpip.TcpClient;
 import br.com.controltcpandroid.tcpip.binary.TCPClientBinary;
-import br.com.controltcpandroid.testes.TestesBinario;
 import br.com.controltcpandroid.util.BinaryUtil;
 import br.com.controltcpandroid.util.MyBitSet;
 import br.com.controltcpandroid.util.RespostaServidor;
@@ -52,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
         mySeekBar = findViewById(R.id.mySeekBar);
         lblVolume = findViewById(R.id.txtVolume);
         lblInformacoes = findViewById(R.id.lblInformacoes);
-        Button btnDesligar = findViewById(R.id.btnDesligar);
-        Button btnSincronizar = findViewById(R.id.btnSincronizar);
-        Button btnMouseView = findViewById(R.id.btnMouseView);
-        Button btnSalvar = findViewById(R.id.btnSalvar);
-        Button btnLoad = findViewById(R.id.btnLoad);
-        Button btnResetData = findViewById(R.id.btnResetData);
-        Button btnTimer = findViewById(R.id.btnTimer);
-        Button btnLock = findViewById(R.id.btnLock);
+        ImageButton btnDesligar = findViewById(R.id.btnDesligar);
+        ImageButton btnSalvar = findViewById(R.id.btnSalvar);
+        ImageButton btnSincronizar = findViewById(R.id.btnSincronizar);
+        ImageButton btnMouseView = findViewById(R.id.btnMouseView);
+        ImageButton btnLoad = findViewById(R.id.btnLoad);
+        ImageButton btnResetData = findViewById(R.id.btnResetData);
+        ImageButton btnTimer = findViewById(R.id.btnTimer);
+        ImageButton btnLock = findViewById(R.id.btnLock);
 
         txtPorta = findViewById(R.id.txtPorta);
         txtIp = findViewById(R.id.txtIp);
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                lblVolume.setText("Volume End: " + seekBar.getProgress());
+                lblVolume.setText("Volume: " + seekBar.getProgress());
                 int volume = seekBar.getProgress();
                 alterarVolume(seekBar.getProgress());
             }

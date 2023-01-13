@@ -1,7 +1,6 @@
 package br.com.controltcpandroid.testes;
 
 import java.nio.charset.Charset;
-import java.util.BitSet;
 
 import br.com.controltcpandroid.util.BinaryUtil;
 import br.com.controltcpandroid.util.MyBitSet;

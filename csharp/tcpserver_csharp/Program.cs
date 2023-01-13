@@ -1,4 +1,5 @@
 ﻿using auxiliar.tcp;
+using auxiliar.testes.tcp;
 
 class Program
 {
@@ -7,10 +8,10 @@ class Program
 
     static void Main(string[] args)
     {
-        new TcpServer(port).start();
+        //new TcpServer(port).start();
         //TestesBinaryBits.testeEntrada5(BinaryBitsAux.to1Bit(true));
 
-        //MainTCPTeste.testeTCPServerClient();
+        MainTCPTeste.testeTCPServerClient();
     }
 
 
