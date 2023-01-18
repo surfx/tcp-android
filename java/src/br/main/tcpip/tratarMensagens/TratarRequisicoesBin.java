@@ -5,6 +5,7 @@ import java.awt.Point;
 import br.main.controles.Audio;
 import br.main.controles.LockScreen;
 import br.main.controles.MouseControl;
+import br.main.controles.Shutdown;
 import br.main.tcpip.interfaces.ITratarRequisicaoBin;
 import br.main.util.BinaryUtil;
 import br.main.util.MyBitSet;
@@ -41,9 +42,11 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 	private MyBitSet sinchronizar() {
 		MyBitSet retorno = BinaryUtil.toMBitByte((byte)1, 1, false);
 		try {
-			retorno.append(Audio.getMasterOutputVolume());	
+			float volume = Audio.getMasterOutputVolume() * 100f; // Linux - Audio
+			System.out.println(String.format("Audio.getMasterOutputVolume(): %s", volume) );
+			retorno.append(volume);	
 		} catch (Exception e) {
-			retorno.append(27.23f);
+			retorno.append(0f);
 		}
         return retorno;
 	}
@@ -55,7 +58,7 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
         float volume = BinaryUtil.byteArrayToFloat(volumeEntrada.toByte(), false);
         
         try {
-        	Audio.setMasterOutputVolume(volume);	
+        	Audio.setMasterOutputVolume(volume / 100.0f); // Linux - Audio
 		} catch (Exception e) {
 		}
         
@@ -65,7 +68,7 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
         try {
         	retorno.append(Audio.getMasterOutputVolume()); // float - 4 bytes = 32 bits	
 		} catch (Exception e) {
-			retorno.append(67.23f);
+			retorno.append(0f);
 		}
         
         System.out.println(retorno.toString());	// 110111100010100010101110101000010
@@ -79,7 +82,7 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 		retorno.append(BinaryUtil.toMBit(rt));
 		System.out.println("retorno: " + retorno.toString());
 		
-		//Shutdown.shutDown();
+		Shutdown.shutDown();
 		
 		return retorno;
 	}
@@ -108,6 +111,9 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 		
 		int xPc = conversorXY(xcel, wcel, wpc);
 		int yPc = conversorXY(ycel, hcel, hpc);
+
+		//System.out.println("wpc: " + wpc + ", hpc: " + hpc + ", xPc: " + xPc + ", yPc: " + yPc);
+		
 		mc.moveMouse(xPc, yPc);
 		
 		// --- retorno
@@ -143,7 +149,5 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 
 		return retorno;
 	}
-	
-	
-	
+
 }
