@@ -23,7 +23,7 @@ public class LockScreen {
 
 	/**
 	 * https://vitux.com/three-ways-to-lock-your-ubuntu-screen/
-	 * $ sudo apt-get install gnome-screensaver
+	 * $ sudo apt-get install gnome-screensaver -y
 	 * $ gnome-screensaver-command -l
 	 */
 	private static boolean ubuntuLockScreen() {
