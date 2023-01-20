@@ -3,7 +3,7 @@ package br.main.tcpip.tratarMensagens;
 import java.awt.Point;
 
 import br.main.controles.Audio;
-import br.main.controles.LockScreen;
+import br.main.controles.LockUnLockScreen;
 import br.main.controles.MouseControl;
 import br.main.controles.Shutdown;
 import br.main.tcpip.interfaces.ITratarRequisicaoBin;
@@ -28,6 +28,7 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 			case 3: return mouseMove(mensagem);
 			case 4: return clickMouse();
 			case 5: return lockScreen();
+			case 6: return unLockScreen();
 		}
 		
 		return msgErro();
@@ -145,9 +146,20 @@ public class TratarRequisicoesBin implements ITratarRequisicaoBin {
 		retorno.append(BinaryUtil.toMBit(rt));
 		System.out.println("retorno: " + retorno.toString());
 		
-		LockScreen.lockSreen();
+		LockUnLockScreen.lockSreen();
 
 		return retorno;
 	}
 
+	private MyBitSet unLockScreen() {
+		String rt = "Tela DesBloqueada";
+		MyBitSet retorno = BinaryUtil.toMBitByte((byte)0x1, 1, false);
+		retorno.append(BinaryUtil.toMBit(rt));
+		System.out.println("retorno: " + retorno.toString());
+		
+		LockUnLockScreen.unLockSreen();
+
+		return retorno;
+	}
+	
 }
