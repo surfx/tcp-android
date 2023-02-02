@@ -49,6 +49,12 @@ dotnet run
 - [mouse c#](https://stackoverflow.com/questions/2416748/how-do-you-simulate-mouse-click-in-c)
 - [InputSimulator](https://ourcodeworld.com/articles/read/520/simulating-keypress-in-the-right-way-using-inputsimulator-with-csharp-in-winforms)
 
-Ainda não 100%:
+## TCP Ref
+
+- [TcpListener](https://learn.microsoft.com/pt-br/dotnet/api/system.net.sockets.tcplistener?view=net-7.0)
+- [TcpClient](https://learn.microsoft.com/pt-br/dotnet/api/system.net.sockets.tcpclient?view=net-7.0)
+- [Multiple Clients](https://stackoverflow.com/questions/5339782/how-do-i-get-tcplistener-to-accept-multiple-connections-and-work-with-each-one-i)
+
+## Ainda não 100%
 
 - [Screen Size](https://stackoverflow.com/questions/43739898/c-sharp-screen-size-without-references-in-interactive)

@@ -66,23 +66,29 @@ namespace auxiliar.testes.tcp
                         Console.Write("Waiting for a connection... ");
 
                         TcpClient client = server.AcceptTcpClient();
-                        //new Thread(new ThreadStart(() => {
-                        Console.WriteLine("Connected!");
 
-                        NetworkStream stream = client.GetStream();
+                        ThreadPool.QueueUserWorkItem((obj) => {
+                            if (obj == null){ return; }
+                            TcpClient myClient = (TcpClient)obj;
 
-                        // -- receive
-                        BitArray entrada = TCPUtil.receivePackage(stream);
-                        //----------------------------
+                            Console.WriteLine("Connected!");
 
-                        BitArray resposta = tratarRequests.tratar(entrada);
+                            NetworkStream stream = myClient.GetStream();
 
-                        TCPUtil.sendPackage(resposta, stream);
-                        
-                        //resposta = tratarRequisicoes.tratarRequisicoesTCP(data);
-                        stream.Close();
+                            // -- receive
+                            BitArray entrada = TCPUtil.receivePackage(stream);
+                            //----------------------------
 
-                        //})).Start();
+                            BitArray resposta = tratarRequests.tratar(entrada);
+
+                            TCPUtil.sendPackage(resposta, stream);
+                            
+                            //resposta = tratarRequisicoes.tratarRequisicoesTCP(data);
+                            stream.Close();
+                            
+                            myClient.Close(); myClient.Dispose();
+
+                        }, client);
 
                     }
                 }
