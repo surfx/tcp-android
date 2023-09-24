@@ -3,12 +3,12 @@ using auxiliar.binarybits;
 
 namespace auxiliar.testes.tcp
 {
-    public class MainTCPTeste
+    public class MainTCPBin
     {
         
         private static int port = 9876;
 
-        public static void testeTCPServerClient(){
+        public static void startTcpBinServer(){
             new ServerTCP(port).start();
 
             //Thread.Sleep(100);

@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v7.0": {
       "tcpserver_csharp/1.0.0": {
         "dependencies": {
-          "AudioSwitcher.AudioApi.CoreAudio": "3.0.0.1"
+          "AudioSwitcher.AudioApi.CoreAudio": "3.0.0.1",
+          "InputSimulator": "1.0.4"
         },
         "runtime": {
           "tcpserver_csharp.dll": {}
@@ -30,6 +31,14 @@
           "lib/net40/AudioSwitcher.AudioApi.CoreAudio.dll": {
             "assemblyVersion": "3.0.0.209",
             "fileVersion": "3.0.0.256"
+          }
+        }
+      },
+      "InputSimulator/1.0.4": {
+        "runtime": {
+          "lib/net20/WindowsInput.dll": {
+            "assemblyVersion": "1.0.4.0",
+            "fileVersion": "1.0.4.0"
           }
         }
       }
@@ -54,6 +63,13 @@
       "sha512": "sha512-mFO412u+l4wvdEOWZyO5Qz0WpjAjlm0QDOIMqPjoptPOPSR3BPtGo4oWsmzHvLaTFzHEqvK1dfyCvAP6T7Y0xg==",
       "path": "audioswitcher.audioapi.coreaudio/3.0.0.1",
       "hashPath": "audioswitcher.audioapi.coreaudio.3.0.0.1.nupkg.sha512"
+    },
+    "InputSimulator/1.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-D0LvRCPQMX6/FJHBjng+RO+wRDuHTJrfo7IAc7rmkPvRqchdVGJWg3y70peOtDy3OLNK+HSOwVkH4GiuLnkKgA==",
+      "path": "inputsimulator/1.0.4",
+      "hashPath": "inputsimulator.1.0.4.nupkg.sha512"
     }
   }
 }

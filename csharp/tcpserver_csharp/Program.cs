@@ -1,5 +1,5 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
-using auxiliar.tcp;
+//using auxiliar.tcp;
 using auxiliar.testes.tcp;
 
 class Program
@@ -9,19 +9,21 @@ class Program
 
     static void Main(string[] args)
     {
-        //new TcpServer(port).start();
-        //TestesBinaryBits.testeEntrada5(BinaryBitsAux.to1Bit(true));
-
         init();
-        MainTCPTeste.testeTCPServerClient();
+        MainTCPBin.startTcpBinServer();
     }
 
 
     // melhora o tempo de resposta para o primeiro 'TratarRequisicoesBin.sinchronizar'
-    private static void init(){
+    private static void init()
+    {
         CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
         float volume = (float)(defaultPlaybackDevice.Volume);
         //Console.WriteLine("volume: {0}", volume);
     }
+
+    // Código legado
+    //new TcpServer(port).start();
+    //TestesBinaryBits.testeEntrada5(BinaryBitsAux.to1Bit(true));
 
 }

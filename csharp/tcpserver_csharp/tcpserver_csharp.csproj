@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="3.0.0.1" />
+    <PackageReference Include="InputSimulator" Version="1.0.4" />
   </ItemGroup>
 
 </Project>
