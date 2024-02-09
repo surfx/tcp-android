@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net8.0": {
       "AudioSwitcher.AudioApi/3.0.0": {
         "type": "package",
         "compile": {
@@ -11,16 +11,16 @@
           "lib/net40/AudioSwitcher.AudioApi.dll": {}
         }
       },
-      "AudioSwitcher.AudioApi.CoreAudio/3.0.0.1": {
+      "AudioSwitcher.AudioApi.CoreAudio/3.0.3": {
         "type": "package",
         "dependencies": {
           "AudioSwitcher.AudioApi": "3.0.0"
         },
         "compile": {
-          "lib/net40/AudioSwitcher.AudioApi.CoreAudio.dll": {}
+          "lib/net452/AudioSwitcher.AudioApi.CoreAudio.dll": {}
         },
         "runtime": {
-          "lib/net40/AudioSwitcher.AudioApi.CoreAudio.dll": {}
+          "lib/net452/AudioSwitcher.AudioApi.CoreAudio.dll": {}
         }
       },
       "InputSimulator/1.0.4": {
@@ -51,16 +51,19 @@
         "lib/net40/AudioSwitcher.AudioApi.dll"
       ]
     },
-    "AudioSwitcher.AudioApi.CoreAudio/3.0.0.1": {
-      "sha512": "mFO412u+l4wvdEOWZyO5Qz0WpjAjlm0QDOIMqPjoptPOPSR3BPtGo4oWsmzHvLaTFzHEqvK1dfyCvAP6T7Y0xg==",
+    "AudioSwitcher.AudioApi.CoreAudio/3.0.3": {
+      "sha512": "O0XrFLuND0Ti/UmW24PvX36Tfhify6jOBpuIKw0wmWemzKQ6fS1uH36a+bNRny9LdqPGIQnFfDyieLo1otb/Lw==",
       "type": "package",
-      "path": "audioswitcher.audioapi.coreaudio/3.0.0.1",
+      "path": "audioswitcher.audioapi.coreaudio/3.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "audioswitcher.audioapi.coreaudio.3.0.0.1.nupkg.sha512",
+        "audioswitcher.audioapi.coreaudio.3.0.3.nupkg.sha512",
         "audioswitcher.audioapi.coreaudio.nuspec",
-        "lib/net40/AudioSwitcher.AudioApi.CoreAudio.dll"
+        "lib/net40/AudioSwitcher.AudioApi.CoreAudio.dll",
+        "lib/net452/AudioSwitcher.AudioApi.CoreAudio.dll",
+        "lib/net472/AudioSwitcher.AudioApi.CoreAudio.dll",
+        "lib/net48/AudioSwitcher.AudioApi.CoreAudio.dll"
       ]
     },
     "InputSimulator/1.0.4": {
@@ -78,13 +81,13 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
-      "AudioSwitcher.AudioApi.CoreAudio >= 3.0.0.1",
+    "net8.0": [
+      "AudioSwitcher.AudioApi.CoreAudio >= 3.0.3",
       "InputSimulator >= 1.0.4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\zero_\\.nuget\\packages\\": {}
+    "C:\\Users\\surfx\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -92,21 +95,22 @@
       "projectUniqueName": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\tcpserver_csharp.csproj",
       "projectName": "tcpserver_csharp",
       "projectPath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\tcpserver_csharp.csproj",
-      "packagesPath": "C:\\Users\\zero_\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\surfx\\.nuget\\packages\\",
       "outputPath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\zero_\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\surfx\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net8.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "projectReferences": {}
         }
       },
@@ -117,12 +121,12 @@
       }
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "dependencies": {
           "AudioSwitcher.AudioApi.CoreAudio": {
             "target": "Package",
-            "version": "[3.0.0.1, )"
+            "version": "[3.0.3, )"
           },
           "InputSimulator": {
             "target": "Package",
@@ -145,7 +149,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -154,30 +158,30 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "O pacote 'AudioSwitcher.AudioApi 3.0.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net7.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "message": "O pacote 'AudioSwitcher.AudioApi 3.0.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
       "libraryId": "AudioSwitcher.AudioApi",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     },
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "O pacote 'AudioSwitcher.AudioApi.CoreAudio 3.0.0.1' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net7.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "message": "O pacote 'AudioSwitcher.AudioApi.CoreAudio 3.0.3' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
       "libraryId": "AudioSwitcher.AudioApi.CoreAudio",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     },
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "O pacote 'InputSimulator 1.0.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net7.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "message": "O pacote 'InputSimulator 1.0.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
       "libraryId": "InputSimulator",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     }
   ]

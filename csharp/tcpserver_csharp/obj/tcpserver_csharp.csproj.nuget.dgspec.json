@@ -10,21 +10,22 @@
         "projectUniqueName": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\tcpserver_csharp.csproj",
         "projectName": "tcpserver_csharp",
         "projectPath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\tcpserver_csharp.csproj",
-        "packagesPath": "C:\\Users\\zero_\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\surfx\\.nuget\\packages\\",
         "outputPath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\zero_\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\surfx\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -35,12 +36,12 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "AudioSwitcher.AudioApi.CoreAudio": {
               "target": "Package",
-              "version": "[3.0.0.1, )"
+              "version": "[3.0.3, )"
             },
             "InputSimulator": {
               "target": "Package",
@@ -63,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
