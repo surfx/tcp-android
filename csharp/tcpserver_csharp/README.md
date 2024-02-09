@@ -12,8 +12,8 @@ dotnet new console --name tcpserver_csharp
 ## Dependência externa
 
 ```
-dotnet add package AudioSwitcher.AudioApi.CoreAudio --version 3.0.0.1
-dotnet add package InputSimulator
+dotnet add package AudioSwitcher.AudioApi.CoreAudio -v 3.0.3 -s https://api.nuget.org/v3/index.json
+dotnet add package InputSimulator -v 1.0.4 -s https://api.nuget.org/v3/index.json
 ```
 
 ### InputSimulator
