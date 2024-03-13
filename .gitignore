@@ -74,3 +74,4 @@ java/bin/br/main/tcpip/tratarMensagens/TratarRequisicoes.class
 /java/bin/br/main/Main.class
 /java/bin/br/main/tcpip/tratarMensagens/TratarRequisicoes.class
 /java/bin/br/main/controles/ShutdownLinux.class
+/csharp/tcpserver_csharp/obj/Debug/net8.0/tcpserver_csharp.csproj.BuildWithSkipAnalyzers

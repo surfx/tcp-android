@@ -59,7 +59,7 @@ public class MouseActivity extends AppCompatActivity {
     private void clickMouse() {
 
         // 4 - click mouse
-        getClient().send(BinaryUtil.toMBitByte((byte)4, 3, false), retorno -> runOnUiThread(() ->{
+        getClient().send(BinaryUtil.toMBitByte((byte)4, 4, false), retorno -> runOnUiThread(() ->{
             RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
             System.out.println(msg.toString());
 
@@ -82,7 +82,7 @@ public class MouseActivity extends AppCompatActivity {
         //System.out.println(event.getX() + ", " + event.getY() + " / ("+width+", "+height+")");
 
         // 3 - send mouse pos
-        MyBitSet entrada = BinaryUtil.toMBitByte((byte)3, 3, false);
+        MyBitSet entrada = BinaryUtil.toMBitByte((byte)3, 4, false);
         entrada.append(BinaryUtil.toMBit(width, 13, false));
         entrada.append(BinaryUtil.toMBit(height, 13, false));
         entrada.append(BinaryUtil.toMBit((int) event.getX(), 13, false));

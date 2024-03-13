@@ -10,8 +10,8 @@ namespace auxiliar.testes.tcp
     {
         private int _port;
 
-        BitArray codErro = BinaryBitsAux.to1Bit(false);
-        BitArray codOk = BinaryBitsAux.to1Bit(true);
+        //readonly BitArray codErro = BinaryBitsAux.to1Bit(false);
+        //readonly BitArray codOk = BinaryBitsAux.to1Bit(true);
 
         public ServerTCP(int port = 9876){
             this._port = port;
@@ -58,8 +58,6 @@ namespace auxiliar.testes.tcp
                     //server = new TcpListener(localAddr, port);
                     server = new TcpListener(IPAddress.Any, _port);
                     server.Start();
-
-                    Byte[] bytes = new Byte[256];
 
                     while (true)
                     {

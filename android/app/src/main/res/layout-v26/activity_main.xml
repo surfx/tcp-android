@@ -149,7 +149,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/_192_168_0_213"
+        android:text="192.168.0.4"
         app:layout_constraintStart_toEndOf="@+id/lblIpAddress"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="LabelFor" />
@@ -190,6 +190,67 @@
         android:contentDescription="Volume"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPorta" />
+
+    <ImageButton
+        android:id="@+id/btnUp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="72dp"
+        android:backgroundTint="#00000000"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtVolume"
+        app:srcCompat="@drawable/arrow_up"
+        tools:srcCompat="@drawable/arrow_up" />
+
+    <ImageButton
+        android:id="@+id/btnDown"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#00000000"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUp"
+        app:srcCompat="@drawable/arrow_down" />
+
+    <ImageButton
+        android:id="@+id/btnLeft"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#00000000"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUp"
+        app:srcCompat="@drawable/arrow_left" />
+
+    <ImageButton
+        android:id="@+id/btnRight"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#00000000"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/btnLeft"
+        app:layout_constraintTop_toBottomOf="@+id/btnUp"
+        app:srcCompat="@drawable/arrow_right" />
+
+    <ImageButton
+        android:id="@+id/btnClickMouseMain"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#00000000"
+        android:tint="#ffffff"
+        app:layout_constraintStart_toEndOf="@+id/btnLeft"
+        app:layout_constraintTop_toBottomOf="@+id/btnUp"
+        app:srcCompat="@android:drawable/ic_menu_send" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

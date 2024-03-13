@@ -19,7 +19,7 @@ namespace auxiliar.binarybits
 
         public static BitArray receivePackage(NetworkStream stream){
             byte[] buffer = new byte[200];
-            int i = stream.Read(buffer, 0, buffer.Length);
+            int _ = stream.Read(buffer, 0, buffer.Length);
             
             BitArray aux = new BitArray(buffer);
             BitArray tamanhoBA = BinaryBitsAux.splitBitArray(aux, 0, PACKAGESIZE);

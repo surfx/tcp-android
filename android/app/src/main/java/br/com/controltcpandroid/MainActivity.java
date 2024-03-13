@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.tcpandroid.R;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
 
     private final int portaPadrao = 9876;
-    private final String ipPadrao = "192.168.0.213";
+    private final String ipPadrao = "192.168.0.4";
 
     private TCPClientBinary getClient(){
         return new TCPClientBinary(getIp(), getPort());
@@ -58,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnResetData = findViewById(R.id.btnResetData);
         ImageButton btnTimer = findViewById(R.id.btnTimer);
         ImageButton btnLock = findViewById(R.id.btnLock);
+        ImageButton btnUp = findViewById(R.id.btnUp);
+        ImageButton btnDown = findViewById(R.id.btnDown);
+        ImageButton btnLeft = findViewById(R.id.btnLeft);
+        ImageButton btnRight = findViewById(R.id.btnRight);
+        ImageButton btnClickMouseMain = findViewById(R.id.btnClickMouseMain);
 
         txtPorta = findViewById(R.id.txtPorta);
         txtIp = findViewById(R.id.txtIp);
@@ -180,6 +187,34 @@ public class MainActivity extends AppCompatActivity {
 //                }, isto);
         });
 
+        btnUp.setOnClickListener(v->{
+            mouseUp();
+        });
+
+//        btnUp.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                mouseUp();
+//                return true;
+//            }
+//        });
+
+        btnDown.setOnClickListener(v->{
+            mouseDown();
+        });
+
+        btnLeft.setOnClickListener(v->{
+            mouseLeft();
+        });
+
+        btnRight.setOnClickListener(v->{
+            mouseRight();
+        });
+
+        btnClickMouseMain.setOnClickListener(v->{
+            clickMouse();
+        });
+
         loadData();
         sincronizar();
     }
@@ -242,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void sincronizar() {
         // 0 - sincronizar
-        getClient().send(BinaryUtil.toMBitByte((byte)0, 3, false), retorno -> runOnUiThread(() -> {
+        getClient().send(BinaryUtil.toMBitByte((byte)0, 4, false), retorno -> runOnUiThread(() -> {
             boolean bit0 = retorno.get(0);
             System.out.println("bit0:\t\t" + (bit0?1:0));
 
@@ -282,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
     private void alterarVolume(int volume) {
         float volumeFloat = Float.parseFloat(volume + "");
 
-        MyBitSet entrada = BinaryUtil.toMBitByte((byte)1, 3, false);
+        MyBitSet entrada = BinaryUtil.toMBitByte((byte)1, 4, false);
         entrada.append(volumeFloat); // float - 4 bytes = 32 bits
 
         // 1 - alterar volume
@@ -308,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void desligar() {
         // 2 - desligar
-        getClient().send(BinaryUtil.toMBitByte((byte)2, 3, false), retorno -> runOnUiThread(() ->{
+        getClient().send(BinaryUtil.toMBitByte((byte)2, 4, false), retorno -> runOnUiThread(() ->{
             RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
             System.out.println(msg.toString());
 
@@ -327,13 +362,72 @@ public class MainActivity extends AppCompatActivity {
     private void lockScreen(){
         lblInformacoes.setText("lockScreen Method");
 
-        getClient().send(BinaryUtil.toMBitByte((byte)5, 3, false), retorno -> runOnUiThread(() ->{
+        getClient().send(BinaryUtil.toMBitByte((byte)5, 4, false), retorno -> runOnUiThread(() ->{
             RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
             System.out.println(msg.toString());
 
             lblInformacoes.setText("mensagem: " + msg.toString());
         }));
 
+    }
+
+    private void mouseUp(){
+        lblInformacoes.setText("mouse up");
+
+        // 6 - Up Mouse
+        getClient().send(BinaryUtil.toMBitByte((byte)6, 4, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            lblInformacoes.setText("mensagem: " + msg.toString());
+        }));
+    }
+
+    private void mouseDown(){
+        lblInformacoes.setText("mouse down");
+
+        // 7 - Down Mouse
+        getClient().send(BinaryUtil.toMBitByte((byte)7, 4, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            lblInformacoes.setText("mensagem: " + msg.toString());
+        }));
+    }
+
+    private void mouseLeft(){
+        lblInformacoes.setText("mouse left");
+
+        // 8 - Left Mouse
+        getClient().send(BinaryUtil.toMBitByte((byte)8, 4, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            lblInformacoes.setText("mensagem: " + msg.toString());
+        }));
+    }
+
+    private void mouseRight(){
+        lblInformacoes.setText("mouse right");
+
+        // 9 - Right Mouse
+        getClient().send(BinaryUtil.toMBitByte((byte)9, 4, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            lblInformacoes.setText("mensagem: " + msg.toString());
+        }));
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void clickMouse() {
+        // 4 - click mouse
+        getClient().send(BinaryUtil.toMBitByte((byte)4, 4, false), retorno -> runOnUiThread(() ->{
+            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
+            System.out.println(msg.toString());
+
+            lblInformacoes.setText("mensagem: " + msg.toString());
+        }));
     }
 
 }

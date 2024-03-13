@@ -3,18 +3,22 @@ using AudioSwitcher.AudioApi.CoreAudio;
 
 namespace auxiliar.tratarrequests
 {
+    /// <summary>
+    /// deprecated
+    /// </summary>
+    [Obsolete]
     public class TratarRequisicoes
     {
 
-        private const String msgErro = "0Erro";
-        private const String codOk = "1";
+        private const string msgErro = "0Erro";
+        private const string codOk = "1";
 
         public string tratarRequisicoesTCP(string mensagem)
         {
-            String rt = msgErro;
+            string rt = msgErro;
             if (mensagem == null || mensagem.Length <= 0) { return rt; }
 
-            String tipo = mensagem.Substring(0, 1);
+            string tipo = mensagem.Substring(0, 1);
             if (tipo.Equals("0"))
             {
                 return getSincronizar();
@@ -44,18 +48,18 @@ namespace auxiliar.tratarrequests
         }
 
         // 0 - sincronizar
-        private String getSincronizar()
+        private string getSincronizar()
         {
             CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
             return codOk + ((defaultPlaybackDevice.Volume / 100.0) + "").Replace(",", ".");
         }
 
         // 1 - alterar o volume
-        private String getAlterarVolume(String mensagem)
+        private string getAlterarVolume(String mensagem)
         {
             try
             {
-                String volumeStr = mensagem.Substring(1);
+                string volumeStr = mensagem.Substring(1);
                 float volumeFloat = float.Parse(volumeStr);
                 CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
                 defaultPlaybackDevice.Volume = volumeFloat;
@@ -68,7 +72,7 @@ namespace auxiliar.tratarrequests
         }
 
         // 2 - desligar
-        private String getDesligar()
+        private string getDesligar()
         {
             Console.WriteLine("Shutdown windows");
 
@@ -80,7 +84,7 @@ namespace auxiliar.tratarrequests
         }
 
         //3 - mouse
-        private String getMousePos(String mensagem)
+        private string getMousePos(string mensagem)
         {
             //31920x1080,1370x425
             mensagem = mensagem.Substring(1);
@@ -119,7 +123,7 @@ namespace auxiliar.tratarrequests
         }
 
         // 4 - click mouse
-        private String getClickMouse()
+        private string getClickMouse()
         {
             MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftDown);
             MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftUp);
@@ -127,7 +131,7 @@ namespace auxiliar.tratarrequests
         }
 
         // 5 - Lock Screen
-        private String lockScreen(){
+        private string lockScreen(){
             LockScreen.LockWorkStation();
             return codOk + "Tela Bloqueada";
         }
