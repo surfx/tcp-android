@@ -21,7 +21,8 @@ namespace auxiliar.tratarrequests
             BitArray cod = BinaryBitsAux.splitBitArray(entrada, 0, 4);
             Console.WriteLine("cod: {0} = {1}", BinaryBitsAux.ToBitString(cod), BinaryBitsAux.toInt(cod, true));
 
-            switch(BinaryBitsAux.toInt(cod, true)){
+            switch (BinaryBitsAux.toInt(cod, true))
+            {
                 case 0: return sinchronizar();
                 case 1: return alterarVolume(entrada);
                 case 2: return desligarPC();
@@ -37,7 +38,8 @@ namespace auxiliar.tratarrequests
             return msgErro();
         }
 
-        private BitArray msgErro() {
+        private BitArray msgErro()
+        {
             BitArray retorno = BinaryBitsAux.Combine(codErro, BinaryBitsAux.toBitArray("Erro"));
             Console.WriteLine("retorno: {0}", BinaryBitsAux.ToBitString(retorno));
             return retorno;
@@ -59,7 +61,7 @@ namespace auxiliar.tratarrequests
             BitArray volumeEntrada = BinaryBitsAux.splitBitArray(entrada, 4, 32);
             float volume = BinaryBitsAux.toFloat(volumeEntrada);
             Console.WriteLine("volumeEntrada: {0}, volume: {1}", BinaryBitsAux.ToBitString(volumeEntrada), volume);
-            
+
             CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
             defaultPlaybackDevice.Volume = volume;
 
@@ -75,7 +77,10 @@ namespace auxiliar.tratarrequests
         {
             Console.WriteLine("Shutdown windows");
 
-            DesligarWindows.Desligar();
+            if (!DesligarWindows.Desligar())
+            {
+                return msgErro();
+            }
 
             string rt = "Desligando";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -90,7 +95,7 @@ namespace auxiliar.tratarrequests
             int wc = BinaryBitsAux.toInt(BinaryBitsAux.splitBitArray(entrada, 4, 13), true);
             int hc = BinaryBitsAux.toInt(BinaryBitsAux.splitBitArray(entrada, 13 + 3, 13), true);
             int xc = BinaryBitsAux.toInt(BinaryBitsAux.splitBitArray(entrada, 13 + 13 + 3, 13), true) + 50; // ajuste, android faz um -50 ?
-            int yc = BinaryBitsAux.toInt(BinaryBitsAux.splitBitArray(entrada, 13 + 13 + 13 + 3, 13), true)  + 50; // ajuste, android faz um -50 ?
+            int yc = BinaryBitsAux.toInt(BinaryBitsAux.splitBitArray(entrada, 13 + 13 + 13 + 3, 13), true) + 50; // ajuste, android faz um -50 ?
             Console.WriteLine("wc: {0}, hc: {1}, xc: {2}, yc: {3}", wc, hc, xc, yc);
 
             if (wc < 0 || hc < 0 || xc < 0 || yc < 0) { return msgErro(); }
@@ -130,7 +135,8 @@ namespace auxiliar.tratarrequests
         }
 
         // 5 - Lock Screen
-        private BitArray lockScreen(){
+        private BitArray lockScreen()
+        {
             LockScreen.LockWorkStation();
 
             string rt = "Tela Bloqueada";
@@ -141,7 +147,8 @@ namespace auxiliar.tratarrequests
         }
 
         // 6 - Up Mouse
-        private BitArray upMouse() {
+        private BitArray upMouse()
+        {
             MouseOperations.MousePoint positionMouse = MouseOperations.GetCursorPosition();
 
             int posY = positionMouse.Y;
