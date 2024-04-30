@@ -10,7 +10,6 @@ class Program
     static void Main(string[] args)
     {
         init();
-        MainTCPBin.startTcpBinServer();
     }
 
 
@@ -20,6 +19,8 @@ class Program
         CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
         float volume = (float)(defaultPlaybackDevice.Volume);
         //Console.WriteLine("volume: {0}", volume);
+
+        MainTCPBin.startTcpBinServer();
     }
 
     // Código legado

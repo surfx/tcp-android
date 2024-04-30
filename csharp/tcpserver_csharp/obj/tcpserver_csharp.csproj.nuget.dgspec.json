@@ -10,11 +10,11 @@
         "projectUniqueName": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\tcpserver_csharp.csproj",
         "projectName": "tcpserver_csharp",
         "projectPath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\tcpserver_csharp.csproj",
-        "packagesPath": "C:\\Users\\Emerson\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\surfx\\.nuget\\packages\\",
         "outputPath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Emerson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\surfx\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -65,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

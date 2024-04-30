@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "lrmrEEdw+Np/xJhJ+HVhRNXUDt+oS6osOS3YECyk6p1VuwpcXPeJ0tndV4jrCWDNHT9rEYjzv86SXudfW+X4WQ==",
+  "dgSpecHash": "+MYYl7tOQ+qnlRbe+OssYWNxpAYbKiul2Mwtkd3mfPChgRFh139Q8zeM46kQDCpkuYPHeoWpiWpaqeW4apMuSg==",
   "success": true,
   "projectFilePath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\tcpserver_csharp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Emerson\\.nuget\\packages\\audioswitcher.audioapi\\3.0.0\\audioswitcher.audioapi.3.0.0.nupkg.sha512",
-    "C:\\Users\\Emerson\\.nuget\\packages\\audioswitcher.audioapi.coreaudio\\3.0.3\\audioswitcher.audioapi.coreaudio.3.0.3.nupkg.sha512",
-    "C:\\Users\\Emerson\\.nuget\\packages\\inputsimulator\\1.0.4\\inputsimulator.1.0.4.nupkg.sha512"
+    "C:\\Users\\surfx\\.nuget\\packages\\audioswitcher.audioapi\\3.0.0\\audioswitcher.audioapi.3.0.0.nupkg.sha512",
+    "C:\\Users\\surfx\\.nuget\\packages\\audioswitcher.audioapi.coreaudio\\3.0.3\\audioswitcher.audioapi.coreaudio.3.0.3.nupkg.sha512",
+    "C:\\Users\\surfx\\.nuget\\packages\\inputsimulator\\1.0.4\\inputsimulator.1.0.4.nupkg.sha512"
   ],
   "logs": [
     {

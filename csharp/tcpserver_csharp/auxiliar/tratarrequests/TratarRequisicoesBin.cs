@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics;
 using AudioSwitcher.AudioApi.CoreAudio;
 using auxiliar.binarybits;
+using tcpserver_csharp.auxiliar.desligarwindows;
 
 namespace auxiliar.tratarrequests
 {
@@ -74,10 +75,7 @@ namespace auxiliar.tratarrequests
         {
             Console.WriteLine("Shutdown windows");
 
-            ProcessStartInfo psi = new ProcessStartInfo("shutdown","/s /t 0");
-            psi.CreateNoWindow = true;
-            psi.UseShellExecute = false;
-            Process.Start(psi);
+            DesligarWindows.Desligar();
 
             string rt = "Desligando";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));

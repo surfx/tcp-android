@@ -46,7 +46,7 @@ namespace auxiliar.testes.tcp
         */
         private void tcpServer()
         {
-            TratarRequisicoesBin tratarRequests = new TratarRequisicoesBin();
+            TratarRequisicoesBin tratarRequests = new();
 
             new Thread(new ThreadStart(() =>
             {
