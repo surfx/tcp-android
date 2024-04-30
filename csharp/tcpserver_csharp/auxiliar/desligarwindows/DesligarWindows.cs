@@ -6,6 +6,31 @@ namespace tcpserver_csharp.auxiliar.desligarwindows
     internal class DesligarWindows
     {
 
+
+        /// <summary>
+        /// desligar o windows pelo winkey
+        /// </summary>
+        /// <returns></returns>
+        public static bool DesligarWinKey() {
+
+            //MinimizeAllWindows.minimizeAllWindows();
+            MultiKeyPressClass.MultiKeyPress([MultiKeyPressClass.KeyCode.LWIN, MultiKeyPressClass.KeyCode.KEY_X]);
+            Thread.Sleep(100);
+            MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.UP);
+            Thread.Sleep(20);
+            MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.UP);
+            Thread.Sleep(20);
+            MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.SPACE_BAR);
+            Thread.Sleep(20);
+            MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.UP);
+            Thread.Sleep(20);
+            MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.UP);
+            Thread.Sleep(20);
+            MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.SPACE_BAR);
+
+            return true;
+        }
+
         /// <summary>
         /// simula desligar o windows pelo teclado
         /// </summary>

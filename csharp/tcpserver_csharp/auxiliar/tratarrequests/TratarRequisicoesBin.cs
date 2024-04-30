@@ -77,7 +77,7 @@ namespace auxiliar.tratarrequests
         {
             Console.WriteLine("Shutdown windows");
 
-            if (!DesligarWindows.Desligar())
+            if (!DesligarWindows.DesligarWinKey())
             {
                 return msgErro();
             }
