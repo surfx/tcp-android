@@ -58,7 +58,7 @@ namespace tcpserver_csharp.auxiliar.desligarwindows
             }
 
             //Console.WriteLine("-- enviei um Enter");
-            //MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.ENTER);
+            MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.ENTER);
             //Console.ReadLine();
             return true;
         }
