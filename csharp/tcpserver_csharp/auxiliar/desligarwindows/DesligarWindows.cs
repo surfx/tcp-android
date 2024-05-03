@@ -6,13 +6,22 @@ namespace tcpserver_csharp.auxiliar.desligarwindows
     internal class DesligarWindows
     {
 
-
+        #region DesligarWinKey
         /// <summary>
         /// desligar o windows pelo winkey
         /// </summary>
         /// <returns></returns>
-        public static bool DesligarWinKey() {
+        public static bool DesligarWinKey()
+        {
+            desligarWinKeyAux(); Thread.Sleep(500);
+            desligarWinKeyAux(); Thread.Sleep(500);
+            desligarWinKeyAux();
 
+            return true;
+        }
+
+        private static void desligarWinKeyAux()
+        {
             //MinimizeAllWindows.minimizeAllWindows();
             MultiKeyPressClass.MultiKeyPress([MultiKeyPressClass.KeyCode.LWIN, MultiKeyPressClass.KeyCode.KEY_X]);
             Thread.Sleep(100);
@@ -27,10 +36,11 @@ namespace tcpserver_csharp.auxiliar.desligarwindows
             MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.UP);
             Thread.Sleep(20);
             MultiKeyPressClass.SendKeyPress(MultiKeyPressClass.KeyCode.SPACE_BAR);
-
-            return true;
         }
 
+        #endregion
+
+        #region desligar pelo teclado - not ok
         /// <summary>
         /// simula desligar o windows pelo teclado
         /// </summary>
@@ -87,7 +97,9 @@ namespace tcpserver_csharp.auxiliar.desligarwindows
             //Console.ReadLine();
             return true;
         }
+        #endregion
 
+        #region desligar pelo terminal
         public static bool DesligarTerminal()
         {
             ProcessStartInfo psi = new("shutdown", "/s /t 0");
@@ -97,6 +109,7 @@ namespace tcpserver_csharp.auxiliar.desligarwindows
 
             return true;
         }
+        #endregion
 
     }
 }

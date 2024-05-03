@@ -3,19 +3,19 @@
   "WorkspaceRootPath": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|d:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\desligarwindows\\desligarwindows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|solutionrelative:auxiliar\\desligarwindows\\desligarwindows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|d:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\tratarrequests\\tratarrequisicoesbin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|solutionrelative:auxiliar\\tratarrequests\\tratarrequisicoesbin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|d:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\user32dll\\multikeypressclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|d:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\desligarwindows\\desligarwindows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|solutionrelative:auxiliar\\desligarwindows\\desligarwindows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\tratarrequests\\tratarrequisicoesbin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|solutionrelative:auxiliar\\tratarrequests\\tratarrequisicoesbin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\user32dll\\multikeypressclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{810F1D63-EE53-43E9-864E-946DA4BFBE90}|tcpserver_csharp.csproj|solutionrelative:auxiliar\\user32dll\\multikeypressclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,12 +42,11 @@
               "RelativeToolTip": "auxiliar\\user32dll\\MultiKeyPressClass.cs",
               "ViewState": "AQIAALACAAAAAAAAAAArwLQCAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T13:04:57.383Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T13:04:57.383Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TratarRequisicoesBin.cs",
               "DocumentMoniker": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\tratarrequests\\TratarRequisicoesBin.cs",
               "RelativeDocumentMoniker": "auxiliar\\tratarrequests\\TratarRequisicoesBin.cs",
@@ -55,25 +54,24 @@
               "RelativeToolTip": "auxiliar\\tratarrequests\\TratarRequisicoesBin.cs",
               "ViewState": "AQIAADoAAAAAAAAAAAArwE8AAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T13:04:13.013Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T13:04:13.013Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "DesligarWindows.cs",
               "DocumentMoniker": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\desligarwindows\\DesligarWindows.cs",
               "RelativeDocumentMoniker": "auxiliar\\desligarwindows\\DesligarWindows.cs",
               "ToolTip": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\auxiliar\\desligarwindows\\DesligarWindows.cs",
               "RelativeToolTip": "auxiliar\\desligarwindows\\DesligarWindows.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAXAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADUAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-30T00:14:12.389Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\meus_documentos\\workspace\\tcp-android\\csharp\\tcpserver_csharp\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
