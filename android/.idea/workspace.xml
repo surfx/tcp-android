@@ -28,14 +28,23 @@
     <list default="true" id="56bf9312-77a7-4b5a-ab12-424fc6332399" name="Changes" comment="java android csharp">
       <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/.vs/tcpserver_csharp/v17/DocumentLayout.backup.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/Debug/net8.0/tcpserve.1746AA12.Up2Date" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/tcpandroid/ExampleUnitTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/.vs/ProjectEvaluation/tcpserver_csharp.metadata.v7.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/.vs/ProjectEvaluation/tcpserver_csharp.projects.v7.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/.vs/tcpserver_csharp/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/.vs/tcpserver_csharp/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/.vs/tcpserver_csharp/v17/DocumentLayout.json" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/.vs/tcpserver_csharp/v17/DocumentLayout.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/tcpserver_csharp.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/tcpserver_csharp.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/tcpserver_csharp.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../csharp/tcpserver_csharp/obj/tcpserver_csharp.csproj.nuget.g.props" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +54,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=RF8M22010MM)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -108,7 +117,7 @@
     "project.structure.last.edited": "Suggestions",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+    "settings.editor.selected.configurable": "experimental"
   }
 }]]></component>
   <component name="PsdUISettings">
