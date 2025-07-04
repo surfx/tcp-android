@@ -76,3 +76,6 @@ java/bin/br/main/tcpip/tratarMensagens/TratarRequisicoes.class
 /java/bin/br/main/controles/ShutdownLinux.class
 /csharp/tcpserver_csharp/obj/Debug/net8.0/tcpserver_csharp.csproj.BuildWithSkipAnalyzers
 /csharp/tcpserver_csharp/.vs/tcpserver_csharp/DesignTimeBuild/.dtbcache.v2
+csharp/tcpserver_csharp/obj/
+csharp/tcpserver_csharp/obj/project.nuget.cache
+csharp/tcpserver_csharp/obj/tcpserver_csharp.csproj.nuget.g.props
