@@ -41,6 +41,20 @@ sim.Keyboard.KeyPress(VirtualKeyCode.LCONTROL);
 dotnet run
 ```
 
+# dotnet
+
+```bash
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+chmod +x dotnet-install.sh
+./dotnet-install.sh --channel 9.0
+
+vim ~/.bashrc
+export PATH=$HOME/.dotnet:$PATH
+source ~/.bashrc
+
+dotnet --version
+```
+
 # urls
 
 - [Audio C#](https://github.com/xenolightning/AudioSwitcher)
