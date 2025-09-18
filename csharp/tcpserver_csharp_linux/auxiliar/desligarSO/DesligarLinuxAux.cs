@@ -52,6 +52,10 @@ namespace tcpserver_csharp.auxiliar.desligarSO
 
             SetasLinux.PressionarSeta(SetasLinux.Tecla.Enter, 50);
 
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Right, 50);
+
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Enter, 50);
+
             return true;
         }
     }
