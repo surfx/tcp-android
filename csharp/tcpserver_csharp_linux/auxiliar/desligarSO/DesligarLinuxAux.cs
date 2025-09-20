@@ -32,6 +32,9 @@ namespace tcpserver_csharp.auxiliar.desligarSO
             int y = 10;     // topo da tela, pequeno deslocamento para não ir 0 absoluto
 
 
+            SetasLinux.MostrarDesktop();
+            System.Threading.Thread.Sleep(100);
+
             Console.WriteLine($"Tela: {w}x{h}");
 
             // Move mouse para o canto superior esquerdo
@@ -44,17 +47,17 @@ namespace tcpserver_csharp.auxiliar.desligarSO
             MouseOperationsLinux.MouseEvent(MouseOperationsLinux.MouseEventFlags.LeftUp);
             System.Threading.Thread.Sleep(50);
 
-            SetasLinux.PressionarSeta(SetasLinux.Tecla.Down, 9, 50);
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Down, 9, 25);
 
-            SetasLinux.PressionarSeta(SetasLinux.Tecla.Right, 50);
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Right, 25);
 
-            SetasLinux.PressionarSeta(SetasLinux.Tecla.Down, 50);
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Down, 25);
 
-            SetasLinux.PressionarSeta(SetasLinux.Tecla.Enter, 50);
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Enter, 25);
 
-            SetasLinux.PressionarSeta(SetasLinux.Tecla.Right, 50);
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Right, 25);
 
-            SetasLinux.PressionarSeta(SetasLinux.Tecla.Enter, 50);
+            SetasLinux.PressionarSeta(SetasLinux.Tecla.Enter, 25);
 
             return true;
         }

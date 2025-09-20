@@ -87,5 +87,34 @@ namespace auxiliar
                 Thread.Sleep(50); // intervalo entre pressionamentos
             }
         }
+
+        private const uint XK_Super_L = 0xffeb;
+        private const uint XK_d = 0x0064;
+
+        public static void MostrarDesktop()
+        {
+            IntPtr display = XOpenDisplay(IntPtr.Zero);
+            if (display == IntPtr.Zero) throw new Exception("Não conseguiu abrir display X11");
+
+            uint super = XKeysymToKeycode(display, XK_Super_L);
+            uint d = XKeysymToKeycode(display, XK_d);
+
+            // Pressiona Super
+            XTestFakeKeyEvent(display, super, true, 0);
+            // Pressiona D
+            XTestFakeKeyEvent(display, d, true, 0);
+            XFlush(display);
+
+            Thread.Sleep(100);
+
+            // Solta D
+            XTestFakeKeyEvent(display, d, false, 0);
+            // Solta Super
+            XTestFakeKeyEvent(display, super, false, 0);
+            XFlush(display);
+
+            XCloseDisplay(display);
+        }
+
     }
 }

@@ -75,7 +75,7 @@ namespace auxiliar.tratarrequests
 
             DesligarLinuxAux.DesligarLinux();
 
-            Thread.Sleep(200);
+            Thread.Sleep(1500);
             DesligarLinuxAux.DesligarLinuxBash();
             // if (!DesligarWindows.DesligarWinKey())
             // {
