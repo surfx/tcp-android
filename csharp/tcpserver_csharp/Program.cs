@@ -1,6 +1,7 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
 //using auxiliar.tcp;
 using auxiliar.testes.tcp;
+using tcpserver_csharp.auxiliar.udpserver;
 
 class Program
 {
@@ -21,6 +22,10 @@ class Program
         //Console.WriteLine("volume: {0}", volume);
 
         MainTCPBin.startTcpBinServer();
+
+        var udpDiscovery = new UdpDiscoveryServer(9876);
+        udpDiscovery.Start();
+
     }
 
     // Código legado

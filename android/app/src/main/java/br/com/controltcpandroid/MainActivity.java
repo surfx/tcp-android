@@ -12,12 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tcpandroid.R;
 
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 import br.com.controltcpandroid.arquivos.Arquivos;
 import br.com.controltcpandroid.dialogs.DialogSimNao;
@@ -26,6 +31,7 @@ import br.com.controltcpandroid.util.BinaryUtil;
 import br.com.controltcpandroid.util.MyBitSet;
 import br.com.controltcpandroid.util.RespostaServidor;
 import br.com.controltcpandroid.util.TCPUtil;
+import br.com.controltcpandroid.udpdiscovery.UDPServerTCPDiscovery;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
 
     private final int portaPadrao = 9876;
-    private final String ipPadrao = "192.168.0.2";
+    private final String ipPadrao = "192.168.0.45";
 
     private TCPClientBinary client;
     private String clientIp;
@@ -85,6 +91,54 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void udpDiscovery(){
+        new Thread(() -> {
+            InetSocketAddress server = UDPServerTCPDiscovery.discover();
+            final boolean serverFound = server != null;
+
+            if (server == null) {
+                // Tenta carregar do arquivo
+                String valor = arquivos.ler();
+                if (valor != null && !valor.isEmpty() && valor.contains(";")) {
+                    String[] vet = valor.split(";");
+                    if (vet.length > 1) {
+                        try {
+                            String ip = vet[0];
+                            int porta = Integer.parseInt(vet[1]);
+                            server = new InetSocketAddress(ip, porta);
+                        } catch (Exception e) {
+                            server = null;
+                        }
+                    }
+                }
+            }
+
+            if (server == null) {
+                // Se ainda for nulo, usa o padrão
+                server = new InetSocketAddress(this.ipPadrao, this.portaPadrao);
+            }
+
+            final InetSocketAddress finalServer = server;
+            runOnUiThread(() -> {
+                setPorta("" + finalServer.getPort());
+                setIp(finalServer.getHostString());
+                saveData(getPort(), getIp());
+
+                client = null;
+                client = getClient();
+
+                if (serverFound) {
+                    Toast.makeText(MainActivity.this, "Servidor encontrado: " + finalServer.getHostString(), Toast.LENGTH_SHORT).show();
+                    saveData(getPort(), getIp());
+                    lblInformacoes.setText("Sincronizar");
+                    sincronizar();
+                } else {
+                    Toast.makeText(MainActivity.this, "Servidor não encontrado. Usando configuração salva/padrão.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }).start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnClickMouseMain = findViewById(R.id.btnClickMouseMain);
 
         final Handler handler = new Handler(Looper.getMainLooper());
+
+        this.udpDiscovery();
 
         txtPorta = findViewById(R.id.txtPorta);
         txtIp = findViewById(R.id.txtIp);

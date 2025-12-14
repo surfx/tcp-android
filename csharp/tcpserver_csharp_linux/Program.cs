@@ -1,4 +1,5 @@
 ﻿using auxiliar.testes.tcp;
+using tcpserver_csharp_linux.auxiliar.udpserver;
 using tcpserver_csharp_linux.linuxaux;
 
 class Program
@@ -22,9 +23,9 @@ class Program
         // Console.WriteLine("Volume atual: " + volume);
 
         MainTCPBin.startTcpBinServer();
+
+        var udpDiscovery = new UdpDiscoveryServer(9876);
+        udpDiscovery.Start();
     }
-
-    
-
 
 }

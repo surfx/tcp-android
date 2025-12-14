@@ -51,6 +51,8 @@ Altere o arquivo: `D:\projetos\tcp-android\android\app\build.gradle`
 ```gradle
 ...
 android {
+    ...
+
     signingConfigs {
         release {
             storeFile file("../chave_apk/my-release-key.jks")
@@ -59,10 +61,6 @@ android {
             keyPassword "root123"
         }
     }
-}
-
-android {
-    ...
 
     buildTypes {
         release {
