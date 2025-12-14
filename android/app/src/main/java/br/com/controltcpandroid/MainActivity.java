@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -26,6 +27,9 @@ import br.com.controltcpandroid.util.MyBitSet;
 import br.com.controltcpandroid.util.RespostaServidor;
 import br.com.controltcpandroid.util.TCPUtil;
 
+import android.os.Handler;
+import android.os.Looper;
+
 public class MainActivity extends AppCompatActivity {
 
     private SeekBar mySeekBar;
@@ -39,11 +43,48 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
 
     private final int portaPadrao = 9876;
-    private final String ipPadrao = "192.168.0.4";
+    private final String ipPadrao = "192.168.0.2";
 
-    private TCPClientBinary getClient(){
-        return new TCPClientBinary(getIp(), getPort());
+    private TCPClientBinary client;
+    private String clientIp;
+    private int clientPort = -1; // Inicializa com uma porta inválida para forçar a criação na primeira chamada
+
+    private void bindRepeatButton(
+            ImageButton button,
+            Runnable action,
+            Handler handler,
+            long intervalMs
+    ) {
+        final boolean[] isPressing = {false};
+        final Runnable[] repeatRunnable = new Runnable[1];
+
+        repeatRunnable[0] = new Runnable() {
+            @Override
+            public void run() {
+                if (isPressing[0]) {
+                    action.run();
+                    handler.postDelayed(this, intervalMs);
+                }
+            }
+        };
+
+        button.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    isPressing[0] = true;
+                    handler.post(repeatRunnable[0]);
+                    return true;
+
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    isPressing[0] = false;
+                    handler.removeCallbacks(repeatRunnable[0]);
+                    return true;
+            }
+            return false;
+        });
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnLeft = findViewById(R.id.btnLeft);
         ImageButton btnRight = findViewById(R.id.btnRight);
         ImageButton btnClickMouseMain = findViewById(R.id.btnClickMouseMain);
+
+        final Handler handler = new Handler(Looper.getMainLooper());
 
         txtPorta = findViewById(R.id.txtPorta);
         txtIp = findViewById(R.id.txtIp);
@@ -187,43 +230,45 @@ public class MainActivity extends AppCompatActivity {
 //                }, isto);
         });
 
-        btnUp.setOnClickListener(v->{
-            mouseUp();
-        });
-
-//        btnUp.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                mouseUp();
-//                return true;
-//            }
-//        });
-
-        btnDown.setOnClickListener(v->{
-            mouseDown();
-        });
-
-        btnLeft.setOnClickListener(v->{
-            mouseLeft();
-        });
-
-        btnRight.setOnClickListener(v->{
-            mouseRight();
-        });
-
         btnClickMouseMain.setOnClickListener(v->{
             clickMouse();
         });
+
+        // btnUp.setOnClickListener(v->{ mouseUp(); });
+        bindRepeatButton(btnUp, this::mouseUp, handler, 50);
+
+        // btnDown.setOnClickListener(v->{ mouseDown(); });
+        bindRepeatButton(btnDown, this::mouseDown, handler, 50);
+
+        // btnLeft.setOnClickListener(v->{ mouseLeft(); });
+        bindRepeatButton(btnLeft, this::mouseLeft, handler, 50);
+
+        // btnRight.setOnClickListener(v->{ mouseRight(); });
+        bindRepeatButton(btnRight, this::mouseRight, handler, 50);
 
         loadData();
         sincronizar();
     }
 
+    private TCPClientBinary getClient(){
+        String newIp = getIp();
+        int newPort = getPort();
+
+        // Reutiliza o cliente somente se o IP e a Porta não mudaram.
+        if (client == null || !newIp.equals(clientIp) || newPort != clientPort) {
+            client = new TCPClientBinary(newIp, newPort);
+            clientIp = newIp;
+            clientPort = newPort;
+        }
+        return client;
+    }
+
     private int getPort() {
-        @SuppressWarnings("UnusedAssignment") int rt = portaPadrao;
-        try { rt = Integer.parseInt(txtPorta.getText().toString()); } catch (Exception e) { //noinspection ConstantConditions
-            rt = portaPadrao; }
-        return rt;
+        try {
+            return Integer.parseInt(txtPorta.getText().toString());
+        } catch (NumberFormatException e) {
+            return portaPadrao;
+        }
     }
 
     private void setPorta(String porta) {
@@ -232,16 +277,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getIp() {
-        @SuppressWarnings("UnusedAssignment") String ip = ipPadrao;
-        ip = txtIp.getText().toString();
-        //noinspection ConstantConditions
-        if (ip == null || ip.isEmpty() || ip.length() <= 0) { ip = ipPadrao; }
-        return ip;
+        String ip = txtIp.getText().toString();
+        return (ip == null || ip.trim().isEmpty()) ? ipPadrao : ip;
     }
 
     private void setIp(String ip) {
-        //noinspection ConstantConditions
-        if (ip == null || ip.isEmpty() || ip.length() <= 0) { ip = ipPadrao; }
+        if (ip == null || ip.trim().isEmpty()) { ip = ipPadrao; }
         txtIp.setText(ip);
     }
 
@@ -259,13 +300,11 @@ public class MainActivity extends AppCompatActivity {
         arquivos.salvar(ip + ";" + porta);
     }
 
-    @SuppressWarnings("ConditionCoveredByFurtherCondition")
     private void loadData() {
         String valor = arquivos.ler();
         if (valor == null || valor.isEmpty() || !valor.contains(";")) { return; }
         String[] vet = valor.split(";");
-        //noinspection ConstantConditions
-        if (vet == null || vet.length <= 1) { return; }
+        if (vet.length <= 1) { return; }
         String ip = vet[0];
         String porta = vet[1];
 
@@ -359,75 +398,44 @@ public class MainActivity extends AppCompatActivity {
 //        }));
     }
 
-    private void lockScreen(){
-        lblInformacoes.setText("lockScreen Method");
-
-        getClient().send(BinaryUtil.toMBitByte((byte)5, 4, false), retorno -> runOnUiThread(() ->{
+    private void sendSimpleCommand(byte command, String description) {
+        lblInformacoes.setText(description);
+        getClient().send(BinaryUtil.toMBitByte(command, 4, false), retorno -> runOnUiThread(() -> {
             RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
             System.out.println(msg.toString());
-
             lblInformacoes.setText("mensagem: " + msg.toString());
         }));
+    }
 
+    private void lockScreen(){
+        // 5 - Lock Screen
+        sendSimpleCommand((byte)5, "lockScreen Method");
     }
 
     private void mouseUp(){
-        lblInformacoes.setText("mouse up");
-
         // 6 - Up Mouse
-        getClient().send(BinaryUtil.toMBitByte((byte)6, 4, false), retorno -> runOnUiThread(() ->{
-            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
-            System.out.println(msg.toString());
-
-            lblInformacoes.setText("mensagem: " + msg.toString());
-        }));
+        sendSimpleCommand((byte)6, "mouse up");
     }
 
     private void mouseDown(){
-        lblInformacoes.setText("mouse down");
-
         // 7 - Down Mouse
-        getClient().send(BinaryUtil.toMBitByte((byte)7, 4, false), retorno -> runOnUiThread(() ->{
-            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
-            System.out.println(msg.toString());
-
-            lblInformacoes.setText("mensagem: " + msg.toString());
-        }));
+        sendSimpleCommand((byte)7, "mouse down");
     }
 
     private void mouseLeft(){
-        lblInformacoes.setText("mouse left");
-
         // 8 - Left Mouse
-        getClient().send(BinaryUtil.toMBitByte((byte)8, 4, false), retorno -> runOnUiThread(() ->{
-            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
-            System.out.println(msg.toString());
-
-            lblInformacoes.setText("mensagem: " + msg.toString());
-        }));
+        sendSimpleCommand((byte)8, "mouse left");
     }
 
     private void mouseRight(){
-        lblInformacoes.setText("mouse right");
-
         // 9 - Right Mouse
-        getClient().send(BinaryUtil.toMBitByte((byte)9, 4, false), retorno -> runOnUiThread(() ->{
-            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
-            System.out.println(msg.toString());
-
-            lblInformacoes.setText("mensagem: " + msg.toString());
-        }));
+        sendSimpleCommand((byte)9, "mouse right");
     }
 
     @SuppressLint("SetTextI18n")
     private void clickMouse() {
         // 4 - click mouse
-        getClient().send(BinaryUtil.toMBitByte((byte)4, 4, false), retorno -> runOnUiThread(() ->{
-            RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
-            System.out.println(msg.toString());
-
-            lblInformacoes.setText("mensagem: " + msg.toString());
-        }));
+        sendSimpleCommand((byte)4, "click mouse");
     }
 
 }

@@ -29,6 +29,10 @@ if "%DIRNAME%" == "" set DIRNAME=.
 set APP_BASE_NAME=%~n0
 set APP_HOME=%DIRNAME%
 
+set SKIP_JDK_VERSION_CHECK=true
+set JAVA_HOME=D:\programas\executaveis\java\jdk-17.0.16+8
+set JAVA_EXE=%JAVA_HOME%\bin\java.exe
+
 @rem Resolve any "." and ".." in APP_HOME to make it shorter.
 for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
 

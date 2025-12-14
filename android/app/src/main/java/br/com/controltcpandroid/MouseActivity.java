@@ -24,12 +24,8 @@ public class MouseActivity extends AppCompatActivity {
     private int porta;
     private String ip;
     private TextView txtInformacoes;
+    private TCPClientBinary client;
 
-    private TCPClientBinary getClient(){
-        return new TCPClientBinary(ip, porta);
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +36,15 @@ public class MouseActivity extends AppCompatActivity {
 
         getExtras();
 
+        this.client = new TCPClientBinary(ip, porta);
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
         View view = findViewById(R.id.activity_mouse);
-        view.setOnTouchListener((view1, event) -> onTouch(view1, event, width, height));
+        view.setOnTouchListener((v, event) -> onTouch(event, width, height));
 
         btnClickMouse.setOnClickListener(v -> {
             txtInformacoes.setText("click");
@@ -59,7 +57,7 @@ public class MouseActivity extends AppCompatActivity {
     private void clickMouse() {
 
         // 4 - click mouse
-        getClient().send(BinaryUtil.toMBitByte((byte)4, 4, false), retorno -> runOnUiThread(() ->{
+        client.send(BinaryUtil.toMBitByte((byte)4, 4, false), retorno -> runOnUiThread(() ->{
             RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
             System.out.println(msg.toString());
 
@@ -76,7 +74,7 @@ public class MouseActivity extends AppCompatActivity {
 
     @SuppressWarnings({"SameReturnValue", "StringOperationCanBeSimplified"})
     @SuppressLint("SetTextI18n")
-    private boolean onTouch(@SuppressWarnings("unused") View v, MotionEvent event, int width, int height) {
+    private boolean onTouch(MotionEvent event, int width, int height) {
         //System.out.println("------------------------------------------");
         //System.out.println("event: " + event);
         //System.out.println(event.getX() + ", " + event.getY() + " / ("+width+", "+height+")");
@@ -88,7 +86,7 @@ public class MouseActivity extends AppCompatActivity {
         entrada.append(BinaryUtil.toMBit((int) event.getX(), 13, false));
         entrada.append(BinaryUtil.toMBit((int) event.getY(), 13, false));
 
-        getClient().send(entrada, retorno -> runOnUiThread(() ->{
+        client.send(entrada, retorno -> runOnUiThread(() ->{
             RespostaServidor msg = TCPUtil.parserMensagemServer(retorno);
             System.out.println(msg.toString());
 

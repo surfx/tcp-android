@@ -3,6 +3,17 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file("../chave_apk/my-release-key.jks")
+            storePassword "root123"
+            keyAlias "mykey"
+            keyPassword "root123"
+        }
+    }
+}
+
+android {
     namespace 'com.example.tcpandroid'
     compileSdk 33
 
@@ -19,7 +30,9 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
