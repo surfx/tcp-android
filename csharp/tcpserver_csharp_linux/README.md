@@ -11,9 +11,8 @@ dotnet new console --name tcpserver_csharp
 
 ## Dependência externa
 
-```
-dotnet add package AudioSwitcher.AudioApi.CoreAudio -v 3.0.3 -s https://api.nuget.org/v3/index.json
-dotnet add package InputSimulator -v 1.0.4 -s https://api.nuget.org/v3/index.json
+```bash
+sudo apt install pulseaudio-utils
 ```
 
 ### InputSimulator
@@ -41,7 +40,7 @@ sim.Keyboard.KeyPress(VirtualKeyCode.LCONTROL);
 dotnet run
 ```
 
-# dotnet
+# dotnet linux
 
 ```bash
 wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
@@ -54,6 +53,17 @@ source ~/.bashrc
 
 dotnet --version
 ```
+
+# bashrc
+
+```
+vim ~/.bashrc
+alias tcp='/home/serproe/Documentos/projetos/tcp-android/csharp/tcpserver_csharp_linux/tcp_csharp.sh'
+echo "Comando disponível:"
+alias tcp
+source ~/.bashrc
+```
+
 
 # urls
 
