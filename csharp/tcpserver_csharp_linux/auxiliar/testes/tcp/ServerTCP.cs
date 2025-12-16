@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Net;
 using System.Net.Sockets;
+using System.Net.NetworkInformation;
 using auxiliar.binarybits;
 using auxiliar.tratarrequests;
 
@@ -25,16 +26,59 @@ namespace auxiliar.testes.tcp
         private void printCabecalho()
         {
             Console.WriteLine("--------------------");
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
+            Console.WriteLine("Local LAN address:");
+
+            foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                // Interface ativa
+                if (ni.OperationalStatus != OperationalStatus.Up)
+                    continue;
+
+                // Ignora loopback e túnel
+                if (ni.NetworkInterfaceType == NetworkInterfaceType.Loopback ||
+                    ni.NetworkInterfaceType == NetworkInterfaceType.Tunnel)
+                    continue;
+
+                var ipProps = ni.GetIPProperties();
+
+                foreach (var addr in ipProps.UnicastAddresses)
                 {
-                    Console.WriteLine(ip.ToString());
+                    if (addr.Address.AddressFamily != AddressFamily.InterNetwork)
+                        continue;
+
+                    var ip = addr.Address.ToString();
+
+                    // Ignora loopback explícito
+                    if (IPAddress.IsLoopback(addr.Address))
+                        continue;
+
+                    // Aceita apenas LANs "clássicas"
+                    if (IsClassicLanIp(ip))
+                    {
+                        Console.WriteLine(ip);
+                    }
                 }
             }
-            Console.WriteLine("Server TCP bin port " + _port);
+
+            Console.WriteLine("Server TCP port " + _port);
             Console.WriteLine("--------------------");
+        }
+
+        private bool IsClassicLanIp(string ip)
+        {
+            // 192.168.x.x (LAN doméstica)
+            if (ip.StartsWith("192.168."))
+                return true;
+
+            // 10.x.x.x (algumas LANs)
+            if (ip.StartsWith("10."))
+                return true;
+
+            // Rejeita 172.16–172.31 (Docker, WSL, VPN na maioria dos casos)
+            if (ip.StartsWith("172."))
+                return false;
+
+            return false;
         }
 
         /*

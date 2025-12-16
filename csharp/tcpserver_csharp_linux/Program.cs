@@ -1,6 +1,6 @@
-﻿using auxiliar.testes.tcp;
-using tcpserver_csharp_linux.auxiliar.udpserver;
+﻿using tcpserver_csharp.auxiliar.udpserver;
 using tcpserver_csharp_linux.linuxaux;
+using auxiliar.testes.tcp;
 
 class Program
 {

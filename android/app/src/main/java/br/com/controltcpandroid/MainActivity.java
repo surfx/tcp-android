@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void udpDiscovery(){
         new Thread(() -> {
-            InetSocketAddress server = UDPServerTCPDiscovery.discover();
+            InetSocketAddress server = UDPServerTCPDiscovery.discover(isto);
             final boolean serverFound = server != null;
 
             if (server == null) {

@@ -1,8 +1,9 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Net.NetworkInformation;
 using System.Text;
 
-namespace tcpserver_csharp_linux.auxiliar.udpserver
+namespace tcpserver_csharp.auxiliar.udpserver
 {
 
     public class UdpDiscoveryServer
@@ -19,8 +20,8 @@ namespace tcpserver_csharp_linux.auxiliar.udpserver
         {
             new Thread(() =>
             {
-                UdpClient udp = new UdpClient(DISCOVERY_PORT);
-                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);
+                using UdpClient udp = new(DISCOVERY_PORT);
+                IPEndPoint remoteEP = new(IPAddress.Any, 0);
 
                 Console.WriteLine("UDP Discovery listening on port " + DISCOVERY_PORT);
 
@@ -31,25 +32,58 @@ namespace tcpserver_csharp_linux.auxiliar.udpserver
 
                     if (msg == "DISCOVER_TCP_SERVER")
                     {
-                        string localIp = GetLocalIPv4();
+                        Console.WriteLine("Discovery request from " + remoteEP.Address);
+
+                        string localIp = GetLocalIPv4SameSubnet(remoteEP.Address);
+
+                        if (localIp == null)
+                        {
+                            Console.WriteLine("No matching LAN IP found, ignoring request");
+                            continue;
+                        }
+
                         string response = $"TCP_SERVER;{localIp};{_tcpPort}";
                         byte[] respBytes = Encoding.UTF8.GetBytes(response);
 
                         udp.Send(respBytes, respBytes.Length, remoteEP);
+
+                        Console.WriteLine("Responded with " + response);
                     }
                 }
-            }).Start();
+            })
+            { IsBackground = true }
+            .Start();
         }
 
-        private string GetLocalIPv4()
+        /**
+         * Retorna o IP local que está na MESMA sub-rede /24
+         * do cliente que enviou o UDP
+         */
+        private string GetLocalIPv4SameSubnet(IPAddress remoteAddress)
         {
-            foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            try
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                    return ip.ToString();
+                using Socket socket = new Socket(
+                    AddressFamily.InterNetwork,
+                    SocketType.Dgram,
+                    ProtocolType.Udp);
+
+                // Não envia nada, só força o SO a escolher a rota
+                socket.Connect(remoteAddress, 65530);
+
+                if (socket.LocalEndPoint is IPEndPoint localEp)
+                {
+                    return localEp.Address.ToString();
+                }
             }
-            return "127.0.0.1";
+            catch (Exception ex)
+            {
+                Console.WriteLine("Route-based IP detection failed: " + ex.Message);
+            }
+
+            return null;
         }
+
     }
 
 }
