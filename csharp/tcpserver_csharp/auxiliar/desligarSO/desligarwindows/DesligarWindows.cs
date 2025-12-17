@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using tcpserver_csharp.auxiliar.user32dll;
 
-namespace tcpserver_csharp.auxiliar.desligarSO
+namespace tcpserver_csharp.auxiliar.desligarSO.desligarwindows
 {
     internal class DesligarWindows
     {

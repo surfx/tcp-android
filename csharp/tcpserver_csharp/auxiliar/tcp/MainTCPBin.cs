@@ -1,14 +1,13 @@
 using System.Collections;
 using auxiliar.binarybits;
 
-namespace auxiliar.testes.tcp
+namespace auxiliar.tcp
 {
     public class MainTCPBin
     {
         
-        private static int port = 9876;
-
-        public static void startTcpBinServer(){
+        public static void startTcpBinServer(int port = 9876){
+            if (port <= 0) { port = 9876; }
             new ServerTCP(port).start();
 
             //Thread.Sleep(100);

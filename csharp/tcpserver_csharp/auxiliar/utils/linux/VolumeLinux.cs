@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace tcpserver_csharp_linux.linuxaux
+namespace tcpserver_csharp.auxiliar.utils.linux
 {
     internal class VolumeLinux
     {

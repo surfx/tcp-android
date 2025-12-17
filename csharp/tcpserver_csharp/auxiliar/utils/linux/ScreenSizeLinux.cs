@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace auxiliar
+namespace tcpserver_csharp.auxiliar.utils.linux
 {
     class ScreenSizeLinux
     {

@@ -1,8 +1,8 @@
 using System.Runtime.InteropServices;
 
-namespace auxiliar
+namespace tcpserver_csharp.auxiliar.utils.linux
 {
-    public static class SetasLinux
+public static class SetasLinux
     {
         // Enum com as setas
         public enum Tecla

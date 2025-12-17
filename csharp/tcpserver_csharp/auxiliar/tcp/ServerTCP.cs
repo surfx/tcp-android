@@ -1,11 +1,14 @@
+using auxiliar.binarybits;
 using System.Collections;
 using System.Net;
-using System.Net.Sockets;
 using System.Net.NetworkInformation;
-using auxiliar.binarybits;
-using auxiliar.tratarrequests;
+using System.Net.Sockets;
+using tcpserver_csharp.auxiliar.tratarrequests;
+using tcpserver_csharp.auxiliar.tratarrequests.linux;
+using tcpserver_csharp.auxiliar.tratarrequests.windows;
+using tcpserver_csharp.auxiliar.utils;
 
-namespace auxiliar.testes.tcp
+namespace auxiliar.tcp
 {
     public class ServerTCP
     {
@@ -15,6 +18,7 @@ namespace auxiliar.testes.tcp
         //readonly BitArray codOk = BinaryBitsAux.to1Bit(true);
 
         public ServerTCP(int port = 9876){
+            if (port <= 0) { port = 9876; }
             this._port = port;
         }
 
@@ -90,7 +94,8 @@ namespace auxiliar.testes.tcp
         */
         private void tcpServer()
         {
-            TratarRequisicoesBin tratarRequests = new();
+
+            ITratarRequisicoesBin tratarRequests = OSDetector.IsWindows() ? new TratarRequisicoesBinWindows() : new TratarRequisicoesBinLinux();
 
             new Thread(new ThreadStart(() =>
             {

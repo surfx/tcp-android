@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Diagnostics;
-using AudioSwitcher.AudioApi.CoreAudio;
 using auxiliar.binarybits;
-using tcpserver_csharp.auxiliar.desligarwindows;
+using tcpserver_csharp.auxiliar.desligarSO.desligarlinux;
+using tcpserver_csharp.auxiliar.utils.linux;
 
-namespace auxiliar.tratarrequests
+namespace tcpserver_csharp.auxiliar.tratarrequests.linux
 {
-    public class TratarRequisicoesBin
+    public class TratarRequisicoesBinLinux : ITratarRequisicoesBin
     {
 
         readonly BitArray codErro = BinaryBitsAux.to1Bit(false);
@@ -48,10 +47,11 @@ namespace auxiliar.tratarrequests
         // 0 - sincronizar
         private BitArray sinchronizar()
         {
-            CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
-            float volume = (float)(defaultPlaybackDevice.Volume);
+            float volume = float.Parse(VolumeLinux.GetVolume());
+            // CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
+            // float volume = (float)(defaultPlaybackDevice.Volume);
             BitArray retorno = BinaryBitsAux.Combine(codOk, volume); // float - 4 bytes = 32 bits
-            Console.WriteLine("retorno: {0}, volume: {1}, defaultPlaybackDevice.Volume: {2}", BinaryBitsAux.ToBitString(retorno), volume, defaultPlaybackDevice.Volume);
+            Console.WriteLine("retorno: {0}, volume: {1}", BinaryBitsAux.ToBitString(retorno), volume);
             return retorno;
         }
 
@@ -61,13 +61,9 @@ namespace auxiliar.tratarrequests
             BitArray volumeEntrada = BinaryBitsAux.splitBitArray(entrada, 4, 32);
             float volume = BinaryBitsAux.toFloat(volumeEntrada);
             Console.WriteLine("volumeEntrada: {0}, volume: {1}", BinaryBitsAux.ToBitString(volumeEntrada), volume);
-
-            CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
-            defaultPlaybackDevice.Volume = volume;
-
-            volume = (float)(defaultPlaybackDevice.Volume);
+            VolumeLinux.SetVolume(volume);
             BitArray retorno = BinaryBitsAux.Combine(codOk, volume); // float - 4 bytes = 32 bits
-            Console.WriteLine("retorno: {0}, volume: {1}, defaultPlaybackDevice.Volume: {2}", BinaryBitsAux.ToBitString(retorno), volume, defaultPlaybackDevice.Volume);
+            Console.WriteLine("retorno: {0}, volume: {1}", BinaryBitsAux.ToBitString(retorno), volume);
 
             return retorno;
         }
@@ -75,12 +71,16 @@ namespace auxiliar.tratarrequests
         // 2 - desligar
         private BitArray desligarPC()
         {
-            Console.WriteLine("Shutdown windows");
+            Console.WriteLine("Shutdown linux");
 
-            if (!DesligarWindows.DesligarWinKey())
-            {
-                return msgErro();
-            }
+            DesligarLinuxAux.DesligarLinux();
+
+            Thread.Sleep(1500);
+            DesligarLinuxAux.DesligarLinuxBash();
+            // if (!DesligarWindows.DesligarWinKey())
+            // {
+            //     return msgErro();
+            // }
 
             string rt = "Desligando";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -100,14 +100,14 @@ namespace auxiliar.tratarrequests
 
             if (wc < 0 || hc < 0 || xc < 0 || yc < 0) { return msgErro(); }
 
-            int wpc = ScreenSize.getWidth();
-            int hpc = ScreenSize.getHeight();
+            int wpc = ScreenSizeLinux.getWidth();
+            int hpc = ScreenSizeLinux.getHeight();
             wpc = wpc <= 0 ? 1920 : wpc;
             hpc = hpc <= 0 ? 1080 : (hpc + 50);
 
             int xPc = conversorXY(xc, wc, wpc);
             int yPc = conversorXY(yc, hc, hpc);
-            MouseOperations.SetCursorPosition(xPc, yPc);
+            MouseOperationsLinux.SetCursorPosition(xPc, yPc);
 
             string rt = "Recebido";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -124,8 +124,8 @@ namespace auxiliar.tratarrequests
         // 4 - click mouse
         private BitArray clickMouse()
         {
-            MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftDown);
-            MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftUp);
+            MouseOperationsLinux.MouseEvent(MouseOperationsLinux.MouseEventFlags.LeftDown);
+            MouseOperationsLinux.MouseEvent(MouseOperationsLinux.MouseEventFlags.LeftUp);
 
             string rt = "Click Recebido";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -137,7 +137,7 @@ namespace auxiliar.tratarrequests
         // 5 - Lock Screen
         private BitArray lockScreen()
         {
-            LockScreen.LockWorkStation();
+            LockScreenLinux.Lock();
 
             string rt = "Tela Bloqueada";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -149,11 +149,11 @@ namespace auxiliar.tratarrequests
         // 6 - Up Mouse
         private BitArray upMouse()
         {
-            MouseOperations.MousePoint positionMouse = MouseOperations.GetCursorPosition();
+            MouseOperationsLinux.MousePoint positionMouse = MouseOperationsLinux.GetCursorPosition();
 
             int posY = positionMouse.Y;
             posY -= mouseIncrement; if (posY < 0) { posY = 0; }
-            MouseOperations.SetCursorPosition(positionMouse.X, posY);
+            MouseOperationsLinux.SetCursorPosition(positionMouse.X, posY);
 
             string rt = "Mouse Up";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -165,11 +165,11 @@ namespace auxiliar.tratarrequests
         // 7 - Down Mouse
         private BitArray downMouse()
         {
-            MouseOperations.MousePoint positionMouse = MouseOperations.GetCursorPosition();
+            MouseOperationsLinux.MousePoint positionMouse = MouseOperationsLinux.GetCursorPosition();
 
             int posY = positionMouse.Y;
             posY += mouseIncrement; //if (posY >= hpc) { posY = hpc; }
-            MouseOperations.SetCursorPosition(positionMouse.X, posY);
+            MouseOperationsLinux.SetCursorPosition(positionMouse.X, posY);
 
             string rt = "Mouse Down";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -181,11 +181,11 @@ namespace auxiliar.tratarrequests
         // 8 - Left Mouse
         private BitArray leftMouse()
         {
-            MouseOperations.MousePoint positionMouse = MouseOperations.GetCursorPosition();
+            MouseOperationsLinux.MousePoint positionMouse = MouseOperationsLinux.GetCursorPosition();
 
             int posX = positionMouse.X;
             posX -= mouseIncrement; if (posX < 0) { posX = 0; }
-            MouseOperations.SetCursorPosition(posX, positionMouse.Y);
+            MouseOperationsLinux.SetCursorPosition(posX, positionMouse.Y);
 
             string rt = "Mouse Left";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));
@@ -197,11 +197,11 @@ namespace auxiliar.tratarrequests
         // 9 - Right Mouse
         private BitArray rightMouse()
         {
-            MouseOperations.MousePoint positionMouse = MouseOperations.GetCursorPosition();
+            MouseOperationsLinux.MousePoint positionMouse = MouseOperationsLinux.GetCursorPosition();
 
             int posX = positionMouse.X;
             posX += mouseIncrement; //if (posX >= wpc) { posX = wpc; }
-            MouseOperations.SetCursorPosition(posX, positionMouse.Y);
+            MouseOperationsLinux.SetCursorPosition(posX, positionMouse.Y);
 
             string rt = "Mouse Right";
             BitArray retorno = BinaryBitsAux.Combine(codOk, BinaryBitsAux.toBitArray(rt));

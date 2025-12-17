@@ -1,10 +1,23 @@
-obj\
-bin\
-bin\Debug\
-bin\Debug\net7.0\
-bin\Debug\net7.0
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-bin/
-bin/Debug/
-bin/Debug/net7.0/
-bin/Debug/net7.0
+## User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+## Visual Studio 2015 cache/options
+.vs/
+
+## Rider
+.idea/
+*.sln.iml
+
+## Builds
+[Bb]in/
+[Oo]bj/
+
+# mstest
+/TestResults

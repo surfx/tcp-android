@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace auxiliar
+namespace tcpserver_csharp.auxiliar.utils.linux
 {
     public static class LockScreenLinux
     {

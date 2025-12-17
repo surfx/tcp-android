@@ -4,7 +4,7 @@ using System.Collections;
 using System.Net.Sockets;
 using auxiliar.binarybits;
 
-namespace auxiliar.testes.tcp
+namespace auxiliar.tcp
 {
     public class ClientTCP
     {

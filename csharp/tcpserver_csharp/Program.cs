@@ -1,6 +1,7 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
+using auxiliar.tcp;
+
 //using auxiliar.tcp;
-using auxiliar.testes.tcp;
 using tcpserver_csharp.auxiliar.udpserver;
 
 class Program

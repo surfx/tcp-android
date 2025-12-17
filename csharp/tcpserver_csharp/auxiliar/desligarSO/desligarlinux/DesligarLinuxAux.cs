@@ -1,7 +1,7 @@
 using System.Diagnostics;
-using auxiliar;
+using tcpserver_csharp.auxiliar.utils.linux;
 
-namespace tcpserver_csharp.auxiliar.desligarSO
+namespace tcpserver_csharp.auxiliar.desligarSO.desligarlinux
 {
     internal class DesligarLinuxAux
     {

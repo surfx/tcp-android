@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Sockets;
-using System.Net.NetworkInformation;
 using System.Text;
 
 namespace tcpserver_csharp.auxiliar.udpserver
@@ -34,7 +33,7 @@ namespace tcpserver_csharp.auxiliar.udpserver
                     {
                         Console.WriteLine("Discovery request from " + remoteEP.Address);
 
-                        string localIp = GetLocalIPv4SameSubnet(remoteEP.Address);
+                        string? localIp = GetLocalIPv4SameSubnet(remoteEP.Address);
 
                         if (localIp == null)
                         {
@@ -59,7 +58,7 @@ namespace tcpserver_csharp.auxiliar.udpserver
          * Retorna o IP local que está na MESMA sub-rede /24
          * do cliente que enviou o UDP
          */
-        private string GetLocalIPv4SameSubnet(IPAddress remoteAddress)
+        private string? GetLocalIPv4SameSubnet(IPAddress remoteAddress)
         {
             try
             {
