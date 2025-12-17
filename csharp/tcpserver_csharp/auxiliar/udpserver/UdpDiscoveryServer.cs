@@ -7,12 +7,15 @@ namespace tcpserver_csharp.auxiliar.udpserver
 
     public class UdpDiscoveryServer
     {
-        private const int DISCOVERY_PORT = 9875;
+        private int DISCOVERY_PORT = 9875;
         private readonly int _tcpPort;
 
-        public UdpDiscoveryServer(int tcpPort)
+        public UdpDiscoveryServer(int udpPort = 9875, int tcpPort = 9876)
         {
+            if (tcpPort <= 0) { tcpPort = 9876; }
+            if (udpPort <= 0) { udpPort = 9875; }
             _tcpPort = tcpPort;
+            DISCOVERY_PORT = udpPort;
         }
 
         public void Start()

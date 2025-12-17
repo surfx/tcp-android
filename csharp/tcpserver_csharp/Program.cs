@@ -3,30 +3,34 @@ using auxiliar.tcp;
 
 //using auxiliar.tcp;
 using tcpserver_csharp.auxiliar.udpserver;
+using tcpserver_csharp.auxiliar.utils;
 
 class Program
 {
 
-    private const Int32 port = 9876;
+    private const int port_tcp = 9876; // porta do servidor tcp
+    private const int port_udp = 9875; // porta para broadcast udp
 
     static void Main(string[] args)
     {
         init();
     }
-
-
-    // melhora o tempo de resposta para o primeiro 'TratarRequisicoesBin.sinchronizar'
+    
     private static void init()
     {
-        CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
-        float volume = (float)(defaultPlaybackDevice.Volume);
-        //Console.WriteLine("volume: {0}", volume);
+        if (OSDetector.IsWindows())
+        {
+            // melhora o tempo de resposta para o primeiro 'TratarRequisicoesBin.sinchronizar'
+            CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
+            float volume = (float)(defaultPlaybackDevice.Volume);
+            //Console.WriteLine("volume: {0}", volume);
+        }
 
-        MainTCPBin.startTcpBinServer();
 
-        var udpDiscovery = new UdpDiscoveryServer(9876);
+        MainTCPBin.startTcpBinServer(port_tcp);
+
+        var udpDiscovery = new UdpDiscoveryServer(port_udp, port_tcp);
         udpDiscovery.Start();
-
     }
 
     // Código legado
