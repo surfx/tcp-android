@@ -79,7 +79,9 @@ namespace tcpserver_csharp.auxiliar.desligarSO.desligarwindows
             bool found = false;
             for (int i = 0; i <= 10; i++)
             {
-                if (WindowTitle.GetActiveWindowTitle().ToLower().Equals(windowshutdownname))
+                // Adicionado verificação de null para WindowTitle.GetActiveWindowTitle()
+                string currentTitle = WindowTitle.GetActiveWindowTitle()?.ToLower() ?? string.Empty;
+                if (currentTitle.Equals(windowshutdownname))
                 {
                     found = true; break;
                 }
@@ -102,9 +104,12 @@ namespace tcpserver_csharp.auxiliar.desligarSO.desligarwindows
         #region desligar pelo terminal
         public static bool DesligarTerminal()
         {
-            ProcessStartInfo psi = new("shutdown", "/s /t 0");
-            psi.CreateNoWindow = true;
-            psi.UseShellExecute = false;
+            ProcessStartInfo psi = new("shutdown", "/s /t 0")
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false
+            };
+            
             Process.Start(psi);
 
             return true;

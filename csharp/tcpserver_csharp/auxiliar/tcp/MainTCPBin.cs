@@ -21,6 +21,7 @@ namespace auxiliar.tcp
 
         }
 
+        #region auxiliar / testes
         #region sincronizar
         private static BitArray msgSincronizar(){
             return BinaryBitsAux.toBits(0, 3);
@@ -97,7 +98,6 @@ namespace auxiliar.tcp
         }
         #endregion
 
-
         #region lockScreen
         private static BitArray msgLockScreen(){
             return BinaryBitsAux.toBits(5, 3);
@@ -110,6 +110,7 @@ namespace auxiliar.tcp
             Console.WriteLine("bit0:\t\t{0}", bit0 ? 1 : 0);
             Console.WriteLine("mensagem:\t{0}", mensagem);
         }
+        #endregion
         #endregion
 
     }

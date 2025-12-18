@@ -12,7 +12,7 @@ namespace tcpserver_csharp.auxiliar.user32dll
         [DllImport("user32.dll")]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
-        public static string GetActiveWindowTitle()
+        public static string? GetActiveWindowTitle()
         {
             const int nChars = 256;
             StringBuilder Buff = new StringBuilder(nChars);

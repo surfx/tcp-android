@@ -5,6 +5,7 @@ using auxiliar.tratarrequests;
 
 namespace auxiliar.tcp
 {
+    [Obsolete]
     public class TcpServer
     {
         private int _port;
@@ -85,7 +86,7 @@ namespace auxiliar.tcp
         */
         private void tcpServer()
         {
-            TratarRequisicoes tratarRequisicoes = new TratarRequisicoes();
+            TratarRequisicoes tratarRequisicoes = new();
 
             new Thread(new ThreadStart(() =>
             {

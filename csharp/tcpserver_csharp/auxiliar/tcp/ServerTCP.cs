@@ -12,17 +12,15 @@ namespace auxiliar.tcp
 {
     public class ServerTCP
     {
-        private int _port;
+        private readonly int _port;
 
-        //readonly BitArray codErro = BinaryBitsAux.to1Bit(false);
-        //readonly BitArray codOk = BinaryBitsAux.to1Bit(true);
-
-        public ServerTCP(int port = 9876){
-            if (port <= 0) { port = 9876; }
-            this._port = port;
+        public ServerTCP(int port = 9876)
+        {
+            this._port = port <= 0 ? 9876 : port;
         }
 
-        public void start(){
+        public void start()
+        {
             this.printCabecalho();
             this.tcpServer();
         }
@@ -32,18 +30,23 @@ namespace auxiliar.tcp
             Console.WriteLine("--------------------");
             Console.WriteLine("Local LAN address:");
 
+            // Verifica se está rodando no Docker
+            if (IsRunningInContainer())
+            {
+                Console.WriteLine("[Ambiente: Container/Docker]");
+            }
+
             foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
             {
-                // Interface ativa
                 if (ni.OperationalStatus != OperationalStatus.Up)
                     continue;
 
-                // Ignora loopback e túnel
                 if (ni.NetworkInterfaceType == NetworkInterfaceType.Loopback ||
                     ni.NetworkInterfaceType == NetworkInterfaceType.Tunnel)
                     continue;
 
                 var ipProps = ni.GetIPProperties();
+                if (ipProps == null) continue;
 
                 foreach (var addr in ipProps.UnicastAddresses)
                 {
@@ -52,14 +55,14 @@ namespace auxiliar.tcp
 
                     var ip = addr.Address.ToString();
 
-                    // Ignora loopback explícito
                     if (IPAddress.IsLoopback(addr.Address))
                         continue;
 
-                    // Aceita apenas LANs "clássicas"
-                    if (IsClassicLanIp(ip))
+                    // Se for IP de LAN clássica ou IP de rede Docker (172.x)
+                    if (IsClassicLanIp(ip) || ip.StartsWith("172."))
                     {
-                        Console.WriteLine(ip);
+                        string sufixo = ip.StartsWith("172.") ? " (Docker/Virtual)" : "";
+                        Console.WriteLine($"{ip}{sufixo}");
                     }
                 }
             }
@@ -70,73 +73,80 @@ namespace auxiliar.tcp
 
         private bool IsClassicLanIp(string ip)
         {
+            if (string.IsNullOrEmpty(ip)) return false;
+
             // 192.168.x.x (LAN doméstica)
             if (ip.StartsWith("192.168."))
                 return true;
 
-            // 10.x.x.x (algumas LANs)
+            // 10.x.x.x (Empresarial/LAN)
             if (ip.StartsWith("10."))
                 return true;
-
-            // Rejeita 172.16–172.31 (Docker, WSL, VPN na maioria dos casos)
-            if (ip.StartsWith("172."))
-                return false;
 
             return false;
         }
 
-        /*
-            https://learn.microsoft.com/pt-br/dotnet/api/system.net.sockets.tcplistener?view=net-7.0
+        /// <summary>
+        /// Detecta se o código está rodando dentro de um container Docker
+        /// </summary>
+        private bool IsRunningInContainer()
+        {
+            // O arquivo /.dockerenv é criado pelo Docker no root do container
+            bool dockerFileExists = File.Exists("/.dockerenv");
+            
+            // Em orquestradores (como K8s), pode-se checar variáveis de ambiente
+            string? containerEnv = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER");
+            
+            return dockerFileExists || (containerEnv != null && containerEnv.ToLower() == "true");
+        }
 
-            Cliente TCP conecta, envia mensagem e morre
-            TODO: talvez no futuro melhorar o código para manter a conexão ativa.
-            TODO 2: se for o caso, melhorar o código tcp server em Java também
-        */
         private void tcpServer()
         {
+            ITratarRequisicoesBin tratarRequests = OSDetector.IsWindows() 
+                ? new TratarRequisicoesBinWindows() 
+                : new TratarRequisicoesBinLinux();
 
-            ITratarRequisicoesBin tratarRequests = OSDetector.IsWindows() ? new TratarRequisicoesBinWindows() : new TratarRequisicoesBinLinux();
-
-            new Thread(new ThreadStart(() =>
+            new Thread(() =>
             {
                 TcpListener? server = null;
 
                 try
                 {
-                    //IPAddress localAddr = IPAddress.Parse("127.0.0.1");
-                    //server = new TcpListener(localAddr, port);
                     server = new TcpListener(IPAddress.Any, _port);
                     server.Start();
 
                     while (true)
                     {
-                        Console.Write("Waiting for a connection... ");
-
+                        Console.WriteLine("Waiting for a connection... ");
                         TcpClient client = server.AcceptTcpClient();
 
                         ThreadPool.QueueUserWorkItem((obj) => {
-                            if (obj == null){ return; }
-                            TcpClient myClient = (TcpClient)obj;
+                            if (obj is not TcpClient myClient) return;
 
-                            Console.WriteLine("Connected!");
+                            try 
+                            {
+                                Console.WriteLine("Connected!");
+                                using NetworkStream stream = myClient.GetStream();
 
-                            NetworkStream stream = myClient.GetStream();
+                                // -- receive
+                                BitArray entrada = TCPUtil.receivePackage(stream);
+                                
+                                // -- process
+                                BitArray resposta = tratarRequests.tratar(entrada);
 
-                            // -- receive
-                            BitArray entrada = TCPUtil.receivePackage(stream);
-                            //----------------------------
-
-                            BitArray resposta = tratarRequests.tratar(entrada);
-
-                            TCPUtil.sendPackage(resposta, stream);
-                            
-                            //resposta = tratarRequisicoes.tratarRequisicoesTCP(data);
-                            stream.Close();
-                            
-                            myClient.Close(); myClient.Dispose();
+                                // -- send
+                                TCPUtil.sendPackage(resposta, stream);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Erro no processamento do cliente: {ex.Message}");
+                            }
+                            finally
+                            {
+                                myClient.Close();
+                            }
 
                         }, client);
-
                     }
                 }
                 catch (SocketException e)
@@ -145,10 +155,9 @@ namespace auxiliar.tcp
                 }
                 finally
                 {
-                    if (server != null) { server.Stop(); }
+                    server?.Stop();
                 }
-            })).Start();
+            }).Start();
         }
     }
-
 }

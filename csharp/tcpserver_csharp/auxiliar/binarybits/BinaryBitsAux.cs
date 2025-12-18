@@ -5,7 +5,6 @@ namespace auxiliar.binarybits
 {
     public class BinaryBitsAux
     {
-
         /*
             converte bases númericas
         */
@@ -35,7 +34,6 @@ namespace auxiliar.binarybits
             return rt;
         }
 
-
         public static BitArray Combine(byte[] first, byte[] second)
         {
             return Combine(new BitArray(first), new BitArray(second));
@@ -55,11 +53,13 @@ namespace auxiliar.binarybits
         {
             if (arrays == null || arrays.Length <= 0) { return new BitArray(0); }
             if (arrays.Length == 1) { return arrays[0]; }
+            
             int size = 0, pos = 0;
             for (int i = 0; i < arrays.Length; i++)
             {
                 size += arrays[i].Count;
             }
+            
             BitArray retorno = new BitArray(size);
             for (int i = 0; i < arrays.Length; i++)
             {
@@ -77,13 +77,17 @@ namespace auxiliar.binarybits
         {
             BitArray p1 = new BitArray(new int[] { valor });
             BitArray rt = new BitArray(size);
-            for (int i = 0; i < size; i++) { rt[i] = p1[i]; }
+            // Garante que não ultrapasse o tamanho de um Int32 (32 bits)
+            int limit = Math.Min(size, p1.Count);
+            for (int i = 0; i < limit; i++) { rt[i] = p1[i]; }
             return rt; // recupero os bytes de interesse
         }
+
         public static BitArray to1Bit(int valor)
         {
             return to1Bit(valor == 1);
         }
+
         public static BitArray to1Bit(bool valor)
         {
             return new BitArray(new bool[] { valor });
@@ -91,7 +95,7 @@ namespace auxiliar.binarybits
 
         public static float toFloat(BitArray input)
         {
-            return BitConverter.ToSingle(BitArrayToBytes(input));
+            return BitConverter.ToSingle(BitArrayToBytes(input), 0);
         }
 
         /*
@@ -109,26 +113,27 @@ namespace auxiliar.binarybits
             return rt;
         }
 
-        public static BitArray toBitArray(String msg)
+        public static BitArray toBitArray(string msg)
         {
-            BitArray stringBA = new BitArray(Encoding.UTF8.GetBytes(msg));
+            byte[] bytes = Encoding.UTF8.GetBytes(msg);
+            BitArray stringBA = new BitArray(bytes);
             // concatena o tamanho com a string em bits
             return Combine(toBits(stringBA.Count, 12), stringBA);
         }
         
         public static string toString(BitArray input, int posInicial = 1, int sizeBits = 12)
         {
-            return Encoding.UTF8.GetString(BitArrayToBytes(splitBitArray(input, posInicial + sizeBits, toInt(splitBitArray(input, posInicial, sizeBits), true))));
+            int length = toInt(splitBitArray(input, posInicial, sizeBits), true);
+            BitArray content = splitBitArray(input, posInicial + sizeBits, length);
+            return Encoding.UTF8.GetString(BitArrayToBytes(content));
         }
         #endregion
 
         public static byte[] BitArrayToBytes(BitArray bitarray)
         {
-            if (bitarray.Length == 0) { throw new System.ArgumentException("must have at least length 1", "bitarray"); }
+            if (bitarray.Length == 0) { throw new ArgumentException("must have at least length 1", nameof(bitarray)); }
 
-            int num_bytes = bitarray.Length / 8;
-            if (bitarray.Length % 8 != 0) { num_bytes += 1; }
-
+            int num_bytes = (bitarray.Length + 7) / 8;
             var bytes = new byte[num_bytes];
             bitarray.CopyTo(bytes, 0);
             return bytes;
@@ -158,7 +163,10 @@ namespace auxiliar.binarybits
         public static void printBytes(byte[] bytes)
         {
             Console.Write("size: {0}. ", bytes.Length);
-            bytes.ToList().ForEach(n => Console.Write("'{0}', ", n));
+            foreach (var n in bytes)
+            {
+                Console.Write("'{0}', ", n);
+            }
             Console.WriteLine();
         }
 
@@ -178,9 +186,6 @@ namespace auxiliar.binarybits
         }
         #endregion
 
-
-
-        //--------
         #region convert BitArray
         public static byte[] toByteArray(BitArray input){
             bool[] cbool = new bool[input.Count];
@@ -194,32 +199,36 @@ namespace auxiliar.binarybits
             return convertido;
         }
 
-        public static BitArray returnBitArray(byte[] input, int size){
+        public static BitArray returnBitArray(byte[] input, int size)
+        {
             BitArray bitAux = new BitArray(input);
             BitArray retorno = new BitArray(size);
-            for(int i = 0; i < retorno.Count; i++){
+            for(int i = 0; i < retorno.Count; i++)
+            {
                 retorno.Set(i, bitAux[i]);
             }
-            //Console.WriteLine("retorno:\t\t{0} [{1}]", BinaryBitsAux.ToBitString(retorno), retorno.Length);
             return retorno;
         }
 
-        public static byte[] toByteN(bool[] input) {
+        public static byte[] toByteN(bool[] input) 
+        {
             if (input == null || input.Length <= 0) { return new byte[] { 0x0 }; }
             
             // corrige o tamanho do input para criar grupos de 8 bits
-            input = preencherBits(input);
+            bool[] paddedInput = preencherBits(input);
             
-            // separar em grupos de 8 bits
-            bool[] bits = new bool[8];
-            int numerogrupos = (input.Length / 8) + (input.Length % 8 == 0 ? 0 : 1);
+            int numerogrupos = paddedInput.Length / 8;
             byte[] rt = new byte[numerogrupos];
             
-            int pos = 0;
+            bool[] bits = new bool[8];
             int group = 0;
-            for (int i = 0; i < input.Length; i++) {
-                bits[pos++] = input[i];
-                if (i != 0 && (i+1) % 8 == 0) {
+            int pos = 0;
+            
+            for (int i = 0; i < paddedInput.Length; i++) 
+            {
+                bits[pos++] = paddedInput[i];
+                if (pos == 8) 
+                {
                     pos = 0;
                     rt[group++] = toByte(bits, true);
                 }
@@ -228,81 +237,48 @@ namespace auxiliar.binarybits
             return rt;
         }
 
-        public static bool[] preencherBits(bool[] input) {
+        public static bool[] preencherBits(bool[] input) 
+        {
             return preencherBits(input, true);
         }
-        public static bool[] preencherBits(bool[] input, bool appendFinal) {
-            if (input == null || input.Length <= 0) { return input; }
+
+        public static bool[] preencherBits(bool[] input, bool appendFinal) 
+        {
+            if (input == null || input.Length <= 0) { return Array.Empty<bool>(); }
+            
             int length = input.Length;
-            int falta = length % 8 == 0 ? 0 : ((length / 8) + 1) * 8 - length;
+            int falta = (8 - (length % 8)) % 8;
             
             if (falta <= 0) { return input; }
+            
             bool[] rt = new bool[length + falta];
-            if (appendFinal) {
-                for (int i = 0; i < length; i++) {
-                    rt[i] = input[i];
-                }
-                for (int i = length; i < falta; i++) {
-                    rt[i] = false;
-                }
-            } else {
-                for (int i = 0; i < falta; i++) {
-                    rt[i] = false;
-                }
-                int pos = 0;
-                for (int i = falta; i < length + falta; i++) {
-                    rt[i] = input[pos++];
-                }
+            if (appendFinal) 
+            {
+                Array.Copy(input, 0, rt, 0, length);
+                // O restante já é false por padrão no C#
+            } 
+            else 
+            {
+                Array.Copy(input, 0, rt, falta, length);
             }
-            input = rt;
             return rt;
         }
 
-        public static byte toByte(bool[] bits, bool bigendian) {
-            
-            // 0xF = 1111
-            byte[] aux = new byte[8];
-            for(int i = 0; i < 8; i++) {
-                aux[i] = (byte)((bits[i]?1:0) & 0xF);
-                //System.out.println(toStr(aux[i]));
-            }
-
-            byte[] mask = new byte[] {
-                0x1,  		// 0000 0001
-                0x2,  		// 0000 0010
-                0x4,  		// 0000 0100
-                0x8,  		// 0000 1000
-                0x10, 		// 0001 0000
-                0x20, 		// 0010 0000
-                0x40, 		// 0100 0000
-                (byte) 0x80 // 1000 0000
-            };
-            
-            if (bigendian) {
-                aux[0] &= mask[0];	// 0x1 - 0000 0001
-                for(int i = 1; i < 8; i++) {
-                    aux[i] <<= i;
-                    aux[i] &= mask[i];
-                }
-            } else {
-                // littleendian - ao contrário
-                for(int i = 0; i < 8; i++) {
-                    aux[i] <<= 7-i;
-                    aux[i] &= mask[7-i];
-                }
-            }
-            //for(int i = 0; i < 8; i++) { System.out.println(toStr(aux[i])); }
-            
+        public static byte toByte(bool[] bits, bool bigendian) 
+        {
             byte bf = 0x0;
-            for(int i = 0; i < 8; i++) {
-                bf |= aux[i];
+            for (int i = 0; i < 8; i++) 
+            {
+                if (bits[i]) 
+                {
+                    if (bigendian)
+                        bf |= (byte)(1 << i);
+                    else
+                        bf |= (byte)(1 << (7 - i));
+                }
             }
-            bf &= 0xFF;	// 1111 1111
-            //System.out.println(toStr(bf));
             return bf;
         }
         #endregion
-
     }
-
 }

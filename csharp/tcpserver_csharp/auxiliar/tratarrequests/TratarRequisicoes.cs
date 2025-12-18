@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using AudioSwitcher.AudioApi.CoreAudio;
+using System.Globalization;
 
 namespace auxiliar.tratarrequests
 {
@@ -9,14 +10,13 @@ namespace auxiliar.tratarrequests
     [Obsolete]
     public class TratarRequisicoes
     {
-
         private const string msgErro = "0Erro";
         private const string codOk = "1";
 
         public string tratarRequisicoesTCP(string mensagem)
         {
             string rt = msgErro;
-            if (mensagem == null || mensagem.Length <= 0) { return rt; }
+            if (string.IsNullOrEmpty(mensagem)) { return rt; }
 
             string tipo = mensagem.Substring(0, 1);
             if (tipo.Equals("0"))
@@ -50,22 +50,38 @@ namespace auxiliar.tratarrequests
         // 0 - sincronizar
         private string getSincronizar()
         {
-            CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
-            return codOk + ((defaultPlaybackDevice.Volume / 100.0) + "").Replace(",", ".");
+            var controller = new CoreAudioController();
+            var defaultPlaybackDevice = controller.DefaultPlaybackDevice;
+            
+            if (defaultPlaybackDevice == null) return msgErro;
+
+            double volumeValue = defaultPlaybackDevice.Volume / 100.0;
+            // Usando InvariantCulture para garantir o ponto como separador decimal
+            return codOk + volumeValue.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         // 1 - alterar o volume
-        private string getAlterarVolume(String mensagem)
+        private string getAlterarVolume(string mensagem)
         {
             try
             {
                 string volumeStr = mensagem.Substring(1);
-                float volumeFloat = float.Parse(volumeStr);
-                CoreAudioDevice defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
-                defaultPlaybackDevice.Volume = volumeFloat;
-                return codOk + ((defaultPlaybackDevice.Volume / 100.0) + "").Replace(",", ".");
+                // Parse usando InvariantCulture para aceitar pontos e evitar erro de vírgula
+                if (float.TryParse(volumeStr, CultureInfo.InvariantCulture, out float volumeFloat))
+                {
+                    var controller = new CoreAudioController();
+                    var defaultPlaybackDevice = controller.DefaultPlaybackDevice;
+
+                    if (defaultPlaybackDevice != null)
+                    {
+                        defaultPlaybackDevice.Volume = volumeFloat;
+                        double volumeValue = defaultPlaybackDevice.Volume / 100.0;
+                        return codOk + volumeValue.ToString("0.00", CultureInfo.InvariantCulture);
+                    }
+                }
+                return msgErro;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return msgErro;
             }
@@ -76,9 +92,11 @@ namespace auxiliar.tratarrequests
         {
             Console.WriteLine("Shutdown windows");
 
-            ProcessStartInfo psi = new ProcessStartInfo("shutdown","/s /t 0");
-            psi.CreateNoWindow = true;
-            psi.UseShellExecute = false;
+            ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /t 0")
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false
+            };
             Process.Start(psi);
             return codOk + "Desligando";
         }
@@ -86,24 +104,26 @@ namespace auxiliar.tratarrequests
         //3 - mouse
         private string getMousePos(string mensagem)
         {
-            //31920x1080,1370x425
+            if (mensagem.Length < 2) return msgErro;
             mensagem = mensagem.Substring(1);
 
-            //Console.WriteLine("lenght: " + mensagem.Length);
-
-            //1920x1080,1370x425
             int posX = mensagem.IndexOf("x");
             int posLX = mensagem.LastIndexOf("x");
             int posVirgula = mensagem.IndexOf(",");
-            int wcel = int.TryParse(mensagem.Substring(0, posX), out wcel) ? wcel : -1;
-            int hcel = int.TryParse(mensagem.Substring(posX + 1, posVirgula - (posX + 1)), out hcel) ? hcel : -1;
-            int xcel = int.TryParse(mensagem.Substring(posVirgula + 1, posLX - (posVirgula + 1)), out xcel) ? xcel + 50 : -1; // ajuste, android faz um -50 ?
-            int ycel = int.TryParse(mensagem.Substring(posLX + 1), out ycel) ? ycel + 50 : -1; // ajuste, android faz um -50 ?
 
-            if (posX < 0 || posLX < 0 || posVirgula < 0 || wcel < 0 || hcel < 0 || xcel < 0 || ycel < 0)
-            {
-                return msgErro;
-            }
+            if (posX < 0 || posLX < 0 || posVirgula < 0) return msgErro;
+
+            // Tratamento de parse para evitar exceções e aviso de variáveis não utilizadas
+            if (!int.TryParse(mensagem.Substring(0, posX), out int wcel)) return msgErro;
+            if (!int.TryParse(mensagem.Substring(posX + 1, posVirgula - (posX + 1)), out int hcel)) return msgErro;
+            if (!int.TryParse(mensagem.Substring(posVirgula + 1, posLX - (posVirgula + 1)), out int xcel)) return msgErro;
+            if (!int.TryParse(mensagem.Substring(posLX + 1), out int ycel)) return msgErro;
+
+            // Ajuste conforme regra original
+            xcel += 50;
+            ycel += 50;
+
+            if (wcel <= 0 || hcel <= 0) return msgErro;
 
             int wpc = ScreenSize.getWidth();
             int hpc = ScreenSize.getHeight();
@@ -112,6 +132,7 @@ namespace auxiliar.tratarrequests
 
             int xPc = conversorXY(xcel, wcel, wpc);
             int yPc = conversorXY(ycel, hcel, hpc);
+            
             MouseOperations.SetCursorPosition(xPc, yPc);
 
             return codOk + "Recebido";
@@ -131,11 +152,10 @@ namespace auxiliar.tratarrequests
         }
 
         // 5 - Lock Screen
-        private string lockScreen(){
+        private string lockScreen()
+        {
             LockScreen.LockWorkStation();
             return codOk + "Tela Bloqueada";
         }
-
     }
-
 }

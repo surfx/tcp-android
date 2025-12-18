@@ -1,231 +1,151 @@
 using System.Runtime.InteropServices;
 
-/*
-        var v = AudioMixerHelper.GetVolume(0x2, 0x4);
-        AudioMixerHelper.SetVolume(0x2, 0x4, 20);
-
-        Console.WriteLine("v: " + v);
-        Console.WriteLine("-------------");
-*/
-
 namespace auxiliar
 {
-
     class AudioMixerHelper
     {
-       // This is the only error code we will use
         public const int MMSYSERR_NOERROR = 0;
-
-        //-------------------------------------------------------------------
-
         public const int MAXPNAMELEN = 32;
-
         public const int MIXER_SHORT_NAME_CHARS = 16;
         public const int MIXER_LONG_NAME_CHARS = 64;
-
         public const int MIXER_GETLINECONTROLSF_ONEBYTYPE = 2;
         public const int MIXER_GETLINEINFOF_COMPONENTTYPE = 3;
-
         public const int MIXER_GETCONTROLDETAILSF_VALUE = 0;
         public const int MIXER_SETCONTROLDETAILSF_VALUE = 0;
-
-        //-------------------------------------------------------------------
-
         public const int MIXERCONTROL_CT_CLASS_SWITCH = 0x20000000;
         public const int MIXERCONTROL_CT_CLASS_FADER = 0x50000000;
-
         public const int MIXERCONTROL_CT_UNITS_BOOLEAN = 0x10000;
         public const int MIXERCONTROL_CT_UNITS_UNSIGNED = 0x30000;
-
-        //-------------------------------------------------------------------
-
-        public const int MIXERCONTROL_CONTROLTYPE_FADER =
-            (MIXERCONTROL_CT_CLASS_FADER | MIXERCONTROL_CT_UNITS_UNSIGNED);
-
-        public const int MIXERCONTROL_CONTROLTYPE_VOLUME =
-            (MIXERCONTROL_CONTROLTYPE_FADER + 1);
-
-        public const int MIXERCONTROL_CONTROLTYPE_BOOLEAN =
-            (MIXERCONTROL_CT_CLASS_SWITCH | MIXERCONTROL_CT_UNITS_BOOLEAN);
-
-        public const int MIXERCONTROL_CONTROLTYPE_MUTE =
-            (MIXERCONTROL_CONTROLTYPE_BOOLEAN + 2);
-
-        //-------------------------------------------------------------------
-
-        // SRC COMPONENT TYPE
+        public const int MIXERCONTROL_CONTROLTYPE_FADER = (MIXERCONTROL_CT_CLASS_FADER | MIXERCONTROL_CT_UNITS_UNSIGNED);
+        public const int MIXERCONTROL_CONTROLTYPE_VOLUME = (MIXERCONTROL_CONTROLTYPE_FADER + 1);
+        public const int MIXERCONTROL_CONTROLTYPE_BOOLEAN = (MIXERCONTROL_CT_CLASS_SWITCH | MIXERCONTROL_CT_UNITS_BOOLEAN);
+        public const int MIXERCONTROL_CONTROLTYPE_MUTE = (MIXERCONTROL_CONTROLTYPE_BOOLEAN + 2);
         public const int MIXERLINE_COMPONENTTYPE_SRC_FIRST = 0x1000;
-
-        public const int MIXERLINE_COMPONENTTYPE_SRC_LINE =
-            (MIXERLINE_COMPONENTTYPE_SRC_FIRST + 2);
-
-        //-------------------------------------------------------------------
-
-        // DST COMPONENT TYPE
+        public const int MIXERLINE_COMPONENTTYPE_SRC_LINE = (MIXERLINE_COMPONENTTYPE_SRC_FIRST + 2);
         public const int MIXERLINE_COMPONENTTYPE_DST_SPEAKERS = 4;
-
-        //-------------------------------------------------------------------
-
-        // This is the callback notification which we use for synchronization
         public const int MM_MIXM_CONTROL_CHANGE = 0x3D1;
-
-        //-------------------------------------------------------------------
-
-        // This is the parameter used to enable .._CONTROL_CHANGE notifications
         public const int CALLBACK_WINDOW = 0x10000;
 
-        //-------------------------------------------------------------------
+        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]
+        private static extern int mixerOpen(out int phmx, int uMxId, IntPtr dwCallback, IntPtr dwInstance, int fdwOpen);
 
-        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]                                                    // mixerOpen
-        private static extern int mixerOpen(
-                                        out int phmx,
-                                        int uMxId,
-                                        int dwCallback,
-                                        int dwInstance,
-                                        int fdwOpen);
-
-        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]                                                    // mixerClose
+        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]
         private static extern int mixerClose(int hmx);
 
-        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]                                                    // mixerGetControlDetailsA
-        private static extern int mixerGetControlDetailsA(
-                                            int hmxobj,
-                                            ref MIXERCONTROLDETAILS pmxcd,
-                                            int fdwDetails);
+        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]
+        private static extern int mixerGetControlDetailsA(int hmxobj, ref MIXERCONTROLDETAILS pmxcd, int fdwDetails);
 
-        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]                                                    // mixerGetLineControlsA
-        private static extern int mixerGetLineControlsA(
-                                            int hmxobj,
-                                            ref MIXERLINECONTROLS pmxlc,
-                                            int fdwControls);
+        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]
+        private static extern int mixerGetLineControlsA(int hmxobj, ref MIXERLINECONTROLS pmxlc, int fdwControls);
 
-        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]                                                    // mixerGetLineInfoA
-        private static extern int mixerGetLineInfoA(
-                                            int hmxobj,
-                                            ref MIXERLINE pmxl,
-                                            int fdwInfo);
+        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]
+        private static extern int mixerGetLineInfoA(int hmxobj, ref MIXERLINE pmxl, int fdwInfo);
 
-        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]                                                    // mixerSetControlDetails
-        private static extern int mixerSetControlDetails(
-                                            int hmxobj,
-                                            ref MIXERCONTROLDETAILS pmxcd,
-                                            int fdwDetails);
+        [DllImport("winmm.dll", CharSet = CharSet.Ansi)]
+        private static extern int mixerSetControlDetails(int hmxobj, ref MIXERCONTROLDETAILS pmxcd, int fdwDetails);
 
-        // -----------------------------------------------------------------------
-
-        public struct MIXERCONTROL                                                                          // MIXERCONTROL
+        public struct MIXERCONTROL
         {
-            public int cbStruct;                    // Size in bytes of MIXERCONTROL
-            public int dwControlID;                 // Unique control ID for mixer device
-            public int dwControlType;               // MIXERCONTROL_CONTROLTYPE_xxx
-            public int fdwControl;                  // MIXERCONTROL_CONTROLF_xxx
-            public int cMultipleItems;              // If MIXERCONTROL_CONTROLF_MULTIPLE set
+            public int cbStruct = 0;
+            public int dwControlID = 0;
+            public int dwControlType = 0;
+            public int fdwControl = 0;
+            public int cMultipleItems = 0;
 
-            [MarshalAs(UnmanagedType.ByValTStr,
-            SizeConst = MIXER_SHORT_NAME_CHARS)]
-            public string szShortName;              // Short name of control
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MIXER_SHORT_NAME_CHARS)]
+            public string szShortName = string.Empty;
 
-            [MarshalAs(UnmanagedType.ByValTStr,
-            SizeConst = MIXER_LONG_NAME_CHARS)]
-            public string szName;                   // Long name of control
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MIXER_LONG_NAME_CHARS)]
+            public string szName = string.Empty;
 
-            public int lMinimum;                    // Minimum value
-            public int lMaximum;                    // Maximum value
+            public int lMinimum = 0;
+            public int lMaximum = 0;
 
-            [MarshalAs(UnmanagedType.U4,
-            SizeConst = 10)]
-            public int reserved;
+            [MarshalAs(UnmanagedType.U4, SizeConst = 10)]
+            public int reserved = 0;
+
+            public MIXERCONTROL() { }
         }
 
-        public struct MIXERCONTROLDETAILS                                                                   // MIXERCONTROLDETAILS
+        public struct MIXERCONTROLDETAILS
         {
-            public int cbStruct;                    // Size in bytes of MIXERCONTROLDETAILS
-            public int dwControlID;                 // Control ID to get/set details on
-            public int cChannels;                   // Number of channels in paDetails array
-            public int item;                        // hwndOwner or cMultipleItems
-            public int cbDetails;                   // Size of _one_details_XX struct
-            public IntPtr paDetails;                // Pointer to array of details_XX_struct
+            public int cbStruct = 0;
+            public int dwControlID = 0;
+            public int cChannels = 0;
+            public int item = 0;
+            public int cbDetails = 0;
+            public IntPtr paDetails = IntPtr.Zero;
+
+            public MIXERCONTROLDETAILS() { }
         }
 
-        public struct MIXERCONTROLDETAILS_UNSIGNED                                                          // MIXERCONTROLDETAILS_UNSIGNED
+        public struct MIXERCONTROLDETAILS_UNSIGNED
         {
-            public int dwValue;
+            public int dwValue = 0;
+            public MIXERCONTROLDETAILS_UNSIGNED() { }
         }
 
-        public struct MIXERLINE                                                                             // MIXERLINE
+        public struct MIXERLINE
         {
-            public int cbStruct;                    // Size of MIXERLINE struct
-            public int dwDestination;               // Zero based destination index
-            public int dwSource;                    // Zero based source index (if source)
-            public int dwLineID;                    // Unique line ID for mixer device
-            public int fdwLine;                     // State/information about line
-            public int dwUser;                      // Driver specific information
-            public int dwComponentType;             // Component type line connects to
-            public int cChannels;                   // Number of channels line supports
-            public int cConnections;                // Number of possible connections
-            public int cControls;                   // Number of controls belonging to this line
+            public int cbStruct = 0;
+            public int dwDestination = 0;
+            public int dwSource = 0;
+            public int dwLineID = 0;
+            public int fdwLine = 0;
+            public int dwUser = 0;
+            public int dwComponentType = 0;
+            public int cChannels = 0;
+            public int cConnections = 0;
+            public int cControls = 0;
 
-            [MarshalAs(UnmanagedType.ByValTStr,
-            SizeConst = MIXER_SHORT_NAME_CHARS)]
-            public string szShortName;              // Short name of control
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MIXER_SHORT_NAME_CHARS)]
+            public string szShortName = string.Empty;
 
-            [MarshalAs(UnmanagedType.ByValTStr,
-            SizeConst = MIXER_LONG_NAME_CHARS)]
-            public string szName;                   // Long name of control
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MIXER_LONG_NAME_CHARS)]
+            public string szName = string.Empty;
 
-            public int dwType;
-            public int dwDeviceID;
-            public int wMid;                        // Manufacturer ID                        
-            public int wPid;                        // Product ID
-            public int vDriverVersion;              // Driver Vers. No.
+            public int dwType = 0;
+            public int dwDeviceID = 0;
+            public int wMid = 0;
+            public int wPid = 0;
+            public int vDriverVersion = 0;
 
-            [MarshalAs(UnmanagedType.ByValTStr,
-            SizeConst = MAXPNAMELEN)]
-            public string szPname;                  // Product name
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAXPNAMELEN)]
+            public string szPname = string.Empty;
+
+            public MIXERLINE() { }
         }
 
-        public struct MIXERLINECONTROLS                                                                     // MIXERLINECONTROLS
+        public struct MIXERLINECONTROLS
         {
-            public int cbStruct;                    // Size in bytes of MIXERLINECONTROLS
-            public int dwLineID;                    // Line ID (from MIXERLINE.dwLineID)
-            // MIXER_GETLINECONTROLSF_ONEBYID or
-            public int dwControl;                   // MIXER_GETLINECONTROLSF_ONEBYTYPE
-            public int cControls;                   // Number of controls pamxctrl points to
-            public int cbmxctrl;                    // Size in bytes of _one_ MIXERCONTROL
-            public IntPtr pamxctrl;                 // Pointer to first MIXERCONTROL array
+            public int cbStruct = 0;
+            public int dwLineID = 0;
+            public int dwControl = 0;
+            public int cControls = 0;
+            public int cbmxctrl = 0;
+            public IntPtr pamxctrl = IntPtr.Zero;
+
+            public MIXERLINECONTROLS() { }
         }
 
-        // This function attempts to obtain a specified mixer control/component pair - 
-        // returns true if successful.
-        private static bool GetMixerControl(                                                                // GetMixerControl
-                                        int hmixer,
-                                        int component,
-                                        int control,
-                                        out MIXERCONTROL mxc,
-                                        out int vCurrentVol)
+        private static bool GetMixerControl(int hmixer, int component, int control, out MIXERCONTROL mxc, out int vCurrentVol)
         {
             bool retValue = false;
+            vCurrentVol = -1;
             mxc = new MIXERCONTROL();
 
             MIXERLINECONTROLS mxlc = new MIXERLINECONTROLS();
             MIXERLINE mxl = new MIXERLINE();
             MIXERCONTROLDETAILS pmxcd = new MIXERCONTROLDETAILS();
-            MIXERCONTROLDETAILS_UNSIGNED du = new MIXERCONTROLDETAILS_UNSIGNED();
-
-            vCurrentVol = -1;       // A dummy value
 
             mxl.cbStruct = Marshal.SizeOf(mxl);
             mxl.dwComponentType = component;
 
-            int rc = mixerGetLineInfoA(
-                                hmixer,
-                                ref mxl,
-                                MIXER_GETLINEINFOF_COMPONENTTYPE);
+            int rc = mixerGetLineInfoA(hmixer, ref mxl, MIXER_GETLINEINFOF_COMPONENTTYPE);
 
             if (MMSYSERR_NOERROR == rc)
             {
                 int sizeofMIXERCONTROL = 152;
-                int ctrl = Marshal.SizeOf(typeof(MIXERCONTROL));
                 mxlc.pamxctrl = Marshal.AllocCoTaskMem(sizeofMIXERCONTROL);
                 mxlc.cbStruct = Marshal.SizeOf(mxlc);
                 mxlc.dwLineID = mxl.dwLineID;
@@ -233,29 +153,16 @@ namespace auxiliar
                 mxlc.cControls = 1;
                 mxlc.cbmxctrl = sizeofMIXERCONTROL;
 
-                // Allocate a buffer for the control 
-                mxc.cbStruct = sizeofMIXERCONTROL;
-
-                // Get the control 
-                rc = mixerGetLineControlsA(
-                                        hmixer,
-                                        ref mxlc,
-                                        MIXER_GETLINECONTROLSF_ONEBYTYPE);
+                rc = mixerGetLineControlsA(hmixer, ref mxlc, MIXER_GETLINECONTROLSF_ONEBYTYPE);
 
                 if (MMSYSERR_NOERROR == rc)
                 {
                     retValue = true;
-                    // Copy the control into the destination structure 
-                    mxc = (MIXERCONTROL)Marshal.PtrToStructure(
-                                                            mxlc.pamxctrl,
-                                                            typeof(MIXERCONTROL));
+                    mxc = Marshal.PtrToStructure<MIXERCONTROL>(mxlc.pamxctrl);
                 }
 
-                int sizeofMIXERCONTROLDETAILS =
-                    Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));
-
-                int sizeofMIXERCONTROLDETAILS_UNSIGNED =
-                    Marshal.SizeOf(typeof(MIXERCONTROLDETAILS_UNSIGNED));
+                int sizeofMIXERCONTROLDETAILS = Marshal.SizeOf(typeof(MIXERCONTROLDETAILS));
+                int sizeofMIXERCONTROLDETAILS_UNSIGNED = Marshal.SizeOf(typeof(MIXERCONTROLDETAILS_UNSIGNED));
 
                 pmxcd.cbStruct = sizeofMIXERCONTROLDETAILS;
                 pmxcd.dwControlID = mxc.dwControlID;
@@ -264,31 +171,23 @@ namespace auxiliar
                 pmxcd.item = 0;
                 pmxcd.cbDetails = sizeofMIXERCONTROLDETAILS_UNSIGNED;
 
-                rc = mixerGetControlDetailsA(
-                                    hmixer,
-                                    ref pmxcd,
-                                    MIXER_GETCONTROLDETAILSF_VALUE);
+                rc = mixerGetControlDetailsA(hmixer, ref pmxcd, MIXER_GETCONTROLDETAILSF_VALUE);
 
-                du = (MIXERCONTROLDETAILS_UNSIGNED)Marshal.PtrToStructure(
-                                                            pmxcd.paDetails,
-                                                            typeof(MIXERCONTROLDETAILS_UNSIGNED));
+                if (MMSYSERR_NOERROR == rc)
+                {
+                    var du = Marshal.PtrToStructure<MIXERCONTROLDETAILS_UNSIGNED>(pmxcd.paDetails);
+                    vCurrentVol = du.dwValue;
+                }
 
-                vCurrentVol = du.dwValue;
-
-                return retValue;    // true
+                Marshal.FreeCoTaskMem(mxlc.pamxctrl);
+                Marshal.FreeCoTaskMem(pmxcd.paDetails);
             }
 
-            return retValue;        // false
+            return retValue;
         }
 
-        private static bool SetVolumeControl(                                                               // SetVolumeControl
-                                    int hmixer,
-                                    MIXERCONTROL mxc,
-                                    int volume)
+        private static bool SetVolumeControl(int hmixer, MIXERCONTROL mxc, int volume)
         {
-            bool retValue = false;
-            int rc;
-
             MIXERCONTROLDETAILS mxcd = new MIXERCONTROLDETAILS();
             MIXERCONTROLDETAILS_UNSIGNED vol = new MIXERCONTROLDETAILS_UNSIGNED();
 
@@ -296,132 +195,66 @@ namespace auxiliar
             mxcd.dwControlID = mxc.dwControlID;
             mxcd.cbStruct = Marshal.SizeOf(mxcd);
             mxcd.cbDetails = Marshal.SizeOf(vol);
-
-            // Allocate a buffer for the control value buffer 
             mxcd.cChannels = 1;
             vol.dwValue = volume;
 
-            // Copy the data into the control value buffer 
-            mxcd.paDetails = Marshal.AllocCoTaskMem(
-                                Marshal.SizeOf(typeof(MIXERCONTROLDETAILS_UNSIGNED)));
+            mxcd.paDetails = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(MIXERCONTROLDETAILS_UNSIGNED)));
+            Marshal.StructureToPtr(vol, mxcd.paDetails, false);
 
-            Marshal.StructureToPtr(
-                                vol,
-                                mxcd.paDetails,
-                                false);
+            int rc = mixerSetControlDetails(hmixer, ref mxcd, MIXER_SETCONTROLDETAILSF_VALUE);
+            
+            Marshal.FreeCoTaskMem(mxcd.paDetails);
 
-            // Set the control value 
-            rc = mixerSetControlDetails(
-                                    hmixer,
-                                    ref mxcd,
-                                    MIXER_SETCONTROLDETAILSF_VALUE);
-
-            return retValue = MMSYSERR_NOERROR == rc ? true : false;
+            return MMSYSERR_NOERROR == rc;
         }
 
-        public static int GetVolume(int control, int component)                                             // GetVolume
+        public static int GetVolume(int control, int component)
         {
             int hmixer = 0;
             int currVol = -1;
-
-            MIXERCONTROL volCtrl = new MIXERCONTROL();
-
-            int rc = mixerOpen(
-                            out hmixer,
-                            0,
-                            0,
-                            0,
-                            0);
-
-            bool b = GetMixerControl(
-                                hmixer,
-                                component,
-                                control,
-                                out volCtrl,        // Not used
-                                out currVol);
-
-            mixerClose(hmixer);
-
+            int rc = mixerOpen(out hmixer, 0, IntPtr.Zero, IntPtr.Zero, 0);
+            if (rc == MMSYSERR_NOERROR)
+            {
+                GetMixerControl(hmixer, component, control, out _, out currVol);
+                mixerClose(hmixer);
+            }
             return currVol;
         }
 
-        public static void SetVolume(int control, int component, int newVol)                              // SetVolume
+        public static void SetVolume(int control, int component, int newVol)
         {
             int hmixer = 0;
-            int currentVol;
-
-            MIXERCONTROL volCtrl = new MIXERCONTROL();
-
-            mixerOpen(
-                    out hmixer,
-                    0,
-                    0,
-                    0,
-                    0);
-
-            GetMixerControl(
-                        hmixer,
-                        component,
-                        control,
-                        out volCtrl,
-                        out currentVol);            // Not used
-
-            SetVolumeControl(hmixer, volCtrl, newVol);
-
-            mixerClose(hmixer);
+            int rc = mixerOpen(out hmixer, 0, IntPtr.Zero, IntPtr.Zero, 0);
+            if (rc == MMSYSERR_NOERROR)
+            {
+                if (GetMixerControl(hmixer, component, control, out var volCtrl, out _))
+                {
+                    SetVolumeControl(hmixer, volCtrl, newVol);
+                }
+                mixerClose(hmixer);
+            }
         }
 
-        public static bool MonitorControl(int iw)     // iw is the window handle                          // MonitorControl
+        public static bool MonitorControl(int iw)
         {
-            int rc = -1;
-            bool retValue = false;
-
-            int hmixer;
-            rc = mixerOpen(
-                        out hmixer,
-                        0,
-                        iw,
-                        0,
-                        CALLBACK_WINDOW);
-
-            return retValue = (MMSYSERR_NOERROR == rc) ? true : false;
+            int rc = mixerOpen(out _, 0, (IntPtr)iw, IntPtr.Zero, CALLBACK_WINDOW);
+            return MMSYSERR_NOERROR == rc;
         }
 
-        public static int CheckMixer()                                                                      // CheckMixer
+        public static int CheckMixer()
         {
-            int retValue = -1;
-            int rc1, rc2 = -1;
-            int hmixer;
-
-            rc1 = mixerOpen(
-                        out hmixer,
-                        0,
-                        0,
-                        0,
-                        0);
-
-            rc2 = mixerClose(hmixer);
-
-            return retValue = (MMSYSERR_NOERROR == rc1) && (MMSYSERR_NOERROR == rc2) ? MMSYSERR_NOERROR : retValue;
+            int rc1 = mixerOpen(out int hmixer, 0, IntPtr.Zero, IntPtr.Zero, 0);
+            int rc2 = (rc1 == MMSYSERR_NOERROR) ? mixerClose(hmixer) : -1;
+            return (MMSYSERR_NOERROR == rc1 && MMSYSERR_NOERROR == rc2) ? MMSYSERR_NOERROR : -1;
         }
 
-        public static int GetControlID(int component, int control)                                        // GetControlID
+        public static int GetControlID(int component, int control)
         {
-            MIXERCONTROL mxc = new MIXERCONTROL();
-            int _i;         // Though we won't need _i, it still must be declared                                    
-
-            bool b = false;
-            int retValue = 0;
-
-            b = GetMixerControl(
-                            0,
-                            component,
-                            control,
-                            out mxc,
-                            out _i);
-
-            return retValue = b ? mxc.dwControlID : -1;
+            if (GetMixerControl(0, component, control, out var mxc, out _))
+            {
+                return mxc.dwControlID;
+            }
+            return -1;
         }
-
     }
 }

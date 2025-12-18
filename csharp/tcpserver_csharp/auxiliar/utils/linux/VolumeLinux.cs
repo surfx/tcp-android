@@ -6,17 +6,22 @@ namespace tcpserver_csharp.auxiliar.utils.linux
     {
         public static string GetVolume(bool semPorcentagem = true)
         {
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = "bash";
-            psi.Arguments = "-c \"pactl get-sink-volume @DEFAULT_SINK@\"";
-            psi.RedirectStandardOutput = true;
-            psi.UseShellExecute = false;
-            psi.CreateNoWindow = true;
-
-            using (Process process = Process.Start(psi))
+            ProcessStartInfo psi = new ProcessStartInfo
             {
+                FileName = "bash",
+                Arguments = "-c \"pactl get-sink-volume @DEFAULT_SINK@\"",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process? process = Process.Start(psi))
+            {
+                if (process == null) return "Erro ao iniciar processo";
+
                 string output = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
+                
                 string rt = ParseVolume(output);
                 return semPorcentagem ? rt.Replace("%", "").Trim() : rt;
             }
@@ -24,32 +29,44 @@ namespace tcpserver_csharp.auxiliar.utils.linux
 
         private static string ParseVolume(string pactlOutput)
         {
-            // Exemplo de saída:
-            // Volume: front-left: 65536 / 100% / 0,00 dB,   front-right: 65536 / 100% / 0,00 dB
+            if (string.IsNullOrWhiteSpace(pactlOutput)) return "Vazio";
+
             int percentIndex = pactlOutput.IndexOf('%');
             if (percentIndex > 0)
             {
                 int start = pactlOutput.LastIndexOf(' ', percentIndex) + 1;
-                return pactlOutput.Substring(start, percentIndex - start + 1);
+                if (start >= 0 && percentIndex > start)
+                {
+                    return pactlOutput.Substring(start, percentIndex - start + 1);
+                }
             }
             return "Desconhecido";
         }
 
         public static void SetVolume(float volume)
         {
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = "bash";
-            psi.Arguments = $"-c \"pactl set-sink-volume @DEFAULT_SINK@ {volume}%\"";
-            psi.RedirectStandardOutput = true;
-            psi.RedirectStandardError = true;
-            psi.UseShellExecute = false;
-            psi.CreateNoWindow = true;
-
-            using (Process process = Process.Start(psi))
+            ProcessStartInfo psi = new ProcessStartInfo
             {
+                FileName = "bash",
+                Arguments = $"-c \"pactl set-sink-volume @DEFAULT_SINK@ {volume}%\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process? process = Process.Start(psi))
+            {
+                if (process == null)
+                {
+                    Console.WriteLine("Erro: Não foi possível iniciar o processo pactl.");
+                    return;
+                }
+
                 process.WaitForExit();
 
-                string output = process.StandardOutput.ReadToEnd();
+                // StandardOutput lido para evitar deadlock, embora não usado no if
+                _ = process.StandardOutput.ReadToEnd();
                 string error = process.StandardError.ReadToEnd();
 
                 if (!string.IsNullOrEmpty(error))

@@ -1,25 +1,32 @@
-
 # About
 
 Server TCP para controle windows - mouse, click, som (sound), shutdown
 
+# Dotnet
+
+```bash
+sudo apt-get update
+sudo apt-get install -y dotnet-sdk-9.0
+dotnet --list-sdks
+```
+
 ## Create project
 
-```
+```bash
 dotnet new console --name tcpserver_csharp
 ```
 
 ## Dependência externa
 
-```
+```bash
 dotnet add package AudioSwitcher.AudioApi.CoreAudio -v 3.0.3 -s https://api.nuget.org/v3/index.json
 dotnet add package InputSimulator -v 1.0.4 -s https://api.nuget.org/v3/index.json
 ```
 
 ### InputSimulator
 
-```
-InputSimulator sim = new InputSimulator();
+```cs
+InputSimulator sim = new();
 
 // Press 0 key
 sim.Keyboard.KeyPress(VirtualKeyCode.VK_0);
@@ -37,7 +44,7 @@ sim.Keyboard.KeyPress(VirtualKeyCode.LCONTROL);
 
 ## Start
 
-```
+```bash
 dotnet run
 ```
 
