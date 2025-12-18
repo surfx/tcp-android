@@ -9,8 +9,12 @@ $gradleCmd  = ".\gradlew"
 try {
     # ===== BUILD =====
     Push-Location $projectDir
+
+    Write-Host "🧹 Parando Daemons do Gradle para liberar arquivos..."
+    & $gradleCmd --stop
+
     Write-Host "🚧 Gerando APK Release..."
-    & $gradleCmd assembleRelease
+    & $gradleCmd clean assembleRelease
 
     if ($LASTEXITCODE -ne 0) {
         throw "Build falhou"

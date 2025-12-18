@@ -128,4 +128,3 @@ Se aparecer `unauthorized`, olhe a tela do celular e aceite.
 ```powershell
 .\adb install -r "D:\projetos\tcp-android\android\app\build\outputs\apk\release\app-release.apk"
 ```
-

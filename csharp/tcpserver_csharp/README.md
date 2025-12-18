@@ -62,6 +62,12 @@ source ~/.bashrc
 dotnet --version
 ```
 
+# Liberar firewall (linux - up broadcast)
+
+```bash
+sudo ufw allow 9875/udp
+```
+
 # urls
 
 - [Audio C#](https://github.com/xenolightning/AudioSwitcher)

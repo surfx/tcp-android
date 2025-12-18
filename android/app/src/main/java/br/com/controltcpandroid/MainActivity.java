@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
 
     private final int portaPadrao = 9876;
-    private final String ipPadrao = "192.168.0.45";
+    private final String ipPadrao = "192.168.0.2";
 
     private TCPClientBinary client;
     private String clientIp;
