@@ -5,15 +5,13 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <NoWarn>$(NoWarn);NU1701</NoWarn>
-    <StartupObject>Program</StartupObject>
+    <StartupObject>teste_tcp.Program</StartupObject>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="3.0.3" />
-    <PackageReference Include="InputSimulator" Version="1.0.4" />
+    <ProjectReference Include="..\tcpserver_csharp.csproj" />
   </ItemGroup>
 
 </Project>
